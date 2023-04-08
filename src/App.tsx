@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Home } from './routes/index';
-import { Header } from './components/index';
+import { Header, SideNavBar } from './components/index';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 import './App.css';
@@ -28,7 +28,9 @@ function App() {
 
   return (
     <>
-      {mobileMenu && 'HAI'}
+      {mobile && (
+        <SideNavBar handleSideBar={handleSideBar} mobileMenu={mobileMenu} />
+      )}
       <Header mobile={mobile} handleSideBar={handleSideBar} />
       <Routes>
         <Route path="/" element={<Home />} />
