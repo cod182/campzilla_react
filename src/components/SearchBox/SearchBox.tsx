@@ -15,11 +15,13 @@ const SearchBox = ({
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    setNoSearchError(false);
     if (!searchQuery) {
       setNoSearchError(true);
+      searchStart(false);
     } else {
-      searchStart();
-      console.log(searchQuery);
+      // Send search state and query back
+      searchStart({ state: true, query: searchQuery });
     }
   };
 
@@ -35,7 +37,7 @@ const SearchBox = ({
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] ${
+            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 ${
               noSearchError ? 'border-[#f00]' : 'border-black'
             }`}
             type="text"
@@ -56,7 +58,9 @@ const SearchBox = ({
             e.preventDefault();
           }}
           type="submit"
-          className="absolute left-[12px] top-[17px] text-[20px] z-[2] transition-all ease-in-out duration-600"
+          className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
+            searchRun ? 'top-[91px]' : 'top-[191px]'
+          }`}
         >
           {locationHover ? <TbLocationFilled /> : <TbLocation />}
         </button>
