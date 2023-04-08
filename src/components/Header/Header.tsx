@@ -1,7 +1,13 @@
 import Logo from '../../assets/images/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
-const Header = ({ mobile }: { mobile: boolean }) => {
+const Header = ({
+  mobile,
+  handleSideBar,
+}: {
+  mobile: boolean;
+  handleSideBar: any;
+}) => {
   return (
     <header className="flex flex-col justify-center mx-auto w-full h-[150px] bg-slate-500 py-10 transition-all ease-in-out duration-300 bg-head-img">
       <div
@@ -27,6 +33,7 @@ const Header = ({ mobile }: { mobile: boolean }) => {
               href="menu"
               onClick={(e) => {
                 e.preventDefault();
+                handleSideBar();
               }}
               className="text-[50px] hover:text-[#49e940] transition-all ease-in-out duration-300"
             >

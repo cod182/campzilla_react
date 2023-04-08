@@ -10,7 +10,10 @@ import './App.css';
 
 function App() {
   const [mobile, setmobile] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+
   const { width } = useWindowDimensions();
+
   useEffect(() => {
     if (width <= 450) {
       setmobile(true);
@@ -19,9 +22,14 @@ function App() {
     }
   }, [width]);
 
+  const handleSideBar = () => {
+    mobileMenu ? setMobileMenu(false) : setMobileMenu(true);
+  };
+
   return (
     <>
-      {mobile && ''} <Header mobile={mobile} />
+      {mobileMenu && 'HAI'}
+      <Header mobile={mobile} handleSideBar={handleSideBar} />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
