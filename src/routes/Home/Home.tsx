@@ -1,11 +1,16 @@
-import { SearchBox, Map } from '../../components/index';
+import { useState } from 'react';
+import { Map, SearchBox } from '../../components/index';
 
 const Home = () => {
+  const handleSearch = () => {
+    setSearchRun(true);
+  };
+  const [searchRun, setSearchRun] = useState(false);
   return (
-    <div>
-      <SearchBox />
+    <>
+      <SearchBox searchRun={searchRun} searchStart={handleSearch} />
       <Map />
-    </div>
+    </>
   );
 };
 
