@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Map, SearchBox } from '../../components/index';
 
+import { ChaoticOrbit } from '@uiball/loaders';
+
 const Home = () => {
   const handleSearch = ({
     state,
@@ -16,10 +18,20 @@ const Home = () => {
     }
   };
   const [searchRun, setSearchRun] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   return (
     <>
       <SearchBox searchRun={searchRun} searchStart={handleSearch} />
-      <Map />
+      {searchRun ? (
+        loading ? (
+          <div className="w-full h-auto flex justify-center items-center">
+            <ChaoticOrbit size={60} speed={1.5} color="green" />
+          </div>
+        ) : (
+          <Map />
+        )
+      ) : null}
     </>
   );
 };
