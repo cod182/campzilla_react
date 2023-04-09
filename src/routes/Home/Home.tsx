@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Map, SearchBox } from '../../components/index';
+import { Map, SearchBox, About } from '../../components/index';
 
 import { ChaoticOrbit } from '@uiball/loaders';
 
