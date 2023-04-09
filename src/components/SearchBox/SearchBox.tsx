@@ -48,7 +48,7 @@ const SearchBox = ({
         searchRun ? 'h-[200px]' : 'h-[400px]'
       }`}
     >
-      <div className="w-[50%] h-full flex justify-center items-center relative">
+      <div className="mx-auto w-[48rem] h-full flex justify-center items-center relative">
         <form
           className="relative w-full h-[50px] mx-auto"
           onSubmit={(e) => handleSubmit(e)}

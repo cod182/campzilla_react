@@ -11,7 +11,7 @@ const SideNavBar = ({
 }) => {
   return (
     <nav
-      className={`w-full bg-[#a3a3a3] transition-all ease-in-out duration-500 absolute left-0 top-0 overflow-hidden ${
+      className={`w-full bg-[#a3a3a3] transition-all ease-in-out duration-500 absolute left-0 top-0 overflow-hidden z-[999] ${
         mobileMenu ? 'h-screen' : 'h-0'
       }`}
     >

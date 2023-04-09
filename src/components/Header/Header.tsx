@@ -9,7 +9,11 @@ const Header = ({
   handleSideBar: any;
 }) => {
   return (
-    <header className="flex flex-col justify-center mx-auto w-full h-[150px] bg-slate-500 py-10 transition-all ease-in-out duration-300 bg-head-img">
+    <header
+      className={`flex flex-col justify-center mx-auto w-full h-[150px] bg-slate-500 py-10 transition-all ease-in-out duration-300 bg-head-img ${
+        !mobile && 'items-center'
+      }`}
+    >
       <div
         className={`max-w-6xl flex flex-row ${
           mobile

@@ -32,6 +32,7 @@ const Home = () => {
           <Map />
         )
       ) : null}
+      <About />
     </>
   );
 };
