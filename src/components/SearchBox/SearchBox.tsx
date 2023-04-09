@@ -55,7 +55,7 @@ const SearchBox = ({
         >
           <input
             id="search-id"
-            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600`}
+            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 bg-search-bg bg-left-bottom bg-contain	bg-repeat-x`}
             type="text"
             placeholder="WHERE ARE WE GOING?"
             onChange={(e) => setSearchQuery(e.target.value)}

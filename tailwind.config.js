@@ -7,6 +7,8 @@ module.exports = {
     extend: {
       backgroundImage: {
         'head-img': "url('/src/assets/images/header-banner.png')",
+        'search-bg': "url('/src/assets/images/search-bg.png')",
+
       }
     },
   },
