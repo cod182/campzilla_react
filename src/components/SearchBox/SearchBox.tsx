@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { RxMagnifyingGlass } from 'react-icons/rx';
 import { TbLocation, TbLocationFilled } from 'react-icons/tb';
 
+import './styles.css';
+
 const SearchBox = ({
   searchRun,
   searchStart,
@@ -13,16 +15,31 @@ const SearchBox = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [noSearchError, setNoSearchError] = useState(false);
 
+  // Called to handle searchbox part of submitting query
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setNoSearchError(false);
     if (!searchQuery) {
-      setNoSearchError(true);
+      handleSearchError();
       searchStart(false);
     } else {
       // Send search state and query back
       searchStart({ state: true, query: searchQuery });
     }
+  };
+
+  const handleSearchError = () => {
+    setNoSearchError(true);
+    const searchInput = document.getElementById('search-id');
+    const searchIcon = document.getElementById('search-icon');
+
+    searchInput?.classList.add('error');
+    searchIcon?.classList.add('text-[#ff0101]');
+
+    setTimeout(() => {
+      searchInput?.classList.remove('error');
+      searchIcon?.classList.remove('text-[#ff0101]');
+    }, 2000);
   };
 
   return (
@@ -37,16 +54,17 @@ const SearchBox = ({
           onSubmit={(e) => handleSubmit(e)}
         >
           <input
-            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 ${
-              noSearchError ? 'border-[#f00]' : 'border-black'
-            }`}
+            id="search-id"
+            className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600`}
             type="text"
             placeholder="WHERE ARE WE GOING?"
             onChange={(e) => setSearchQuery(e.target.value)}
+            style={{}}
           />
           <button
+            id="search-icon"
             type="submit"
-            className="absolute right-[12px] top-[11px] text-[30px]"
+            className="absolute right-[12px] top-[11px] text-[30px] transition-all ease-in-out duration-600"
           >
             <RxMagnifyingGlass />
           </button>
