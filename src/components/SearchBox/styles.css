@@ -14,3 +14,22 @@
     right: -5px;
   }
 }
+
+.loading-geo {
+  color: #000000;
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes color {
+  0% {
+    color: #000000;
+  }
+  50% {
+    color: #29bc00;
+  }
+  100% {
+    color: #000000;
+  }
+}

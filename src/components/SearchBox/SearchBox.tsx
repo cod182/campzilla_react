@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RxMagnifyingGlass } from 'react-icons/rx';
-import { TbLocation, TbLocationFilled } from 'react-icons/tb';
+import { TbLocation, TbLocationFilled, TbLocationOff } from 'react-icons/tb';
+
+import { useGeolocated } from 'react-geolocated';
 
 import './styles.css';
 
@@ -14,6 +16,8 @@ const SearchBox = ({
   const [locationHover, setLocationHover] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [noSearchError, setNoSearchError] = useState(false);
+  const [geoLocation, setGeoLocation] = useState(false);
+  const [geoLoading, setGeoLoading] = useState(false);
 
   // Called to handle searchbox part of submitting query
   const handleSubmit = (e: any) => {
@@ -42,6 +46,36 @@ const SearchBox = ({
     }, 2000);
   };
 
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: {
+        enableHighAccuracy: true,
+      },
+      userDecisionTimeout: 5000,
+    });
+
+  useEffect(() => {
+    console.log('enabled 1st', isGeolocationEnabled);
+    console.log('available 1st', isGeolocationAvailable);
+
+    if (isGeolocationEnabled && isGeolocationAvailable) {
+      setGeoLoading(true);
+      setGeoLocation(false);
+
+      console.log('enabled', isGeolocationEnabled);
+      console.log('available', isGeolocationAvailable);
+      console.log(coords);
+
+      if (coords) {
+        setGeoLocation(false);
+        setGeoLocation(true);
+      }
+    } else {
+      setGeoLocation(false);
+      setGeoLocation(false);
+    }
+  }, [coords]);
+
   return (
     <div
       className={`w-screen bg-white flex flex-row items-center justify-center ${
@@ -69,19 +103,33 @@ const SearchBox = ({
             <RxMagnifyingGlass />
           </button>
         </form>
-        <button
-          onMouseEnter={() => setLocationHover(true)}
-          onMouseLeave={() => setLocationHover(false)}
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-          type="submit"
-          className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
-            searchRun ? 'top-[91px]' : 'top-[191px]'
-          }`}
-        >
-          {locationHover ? <TbLocationFilled /> : <TbLocation />}
-        </button>
+        {geoLocation ? (
+          <button
+            onMouseEnter={() => setLocationHover(true)}
+            onMouseLeave={() => setLocationHover(false)}
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            type="button"
+            className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
+              searchRun ? 'top-[91px]' : 'top-[191px]'
+            }`}
+          >
+            {locationHover ? <TbLocationFilled /> : <TbLocation />}
+          </button>
+        ) : (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            type="button"
+            className={`disabled absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
+              searchRun ? 'top-[91px]' : 'top-[191px]'
+            } ${isGeolocationEnabled && 'loading-geo'}`}
+          >
+            {isGeolocationEnabled ? <TbLocation /> : <TbLocationOff />}
+          </button>
+        )}
       </div>
     </div>
   );
