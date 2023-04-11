@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Map, SearchBox, About } from '../../components/index';
 
 import { ChaoticOrbit } from '@uiball/loaders';
@@ -27,7 +27,14 @@ const Home = () => {
     { latitude: 52.4924831, longitude: -2.1498262, name: 'location 4' },
   ]);
 
-  console.log(geoLocationObj);
+  const mapRef = useRef();
+
+  useEffect(() => {
+    var element = document.getElementById('map');
+    if (searchRun) {
+      element!.scrollIntoView();
+    }
+  }, [searchRun]);
 
   return (
     <>
@@ -42,7 +49,9 @@ const Home = () => {
             <ChaoticOrbit size={60} speed={1.5} color="green" />
           </div>
         ) : (
-          <Map coords={geoLocationObj} searchResults={locationResults} />
+          <div id="map">
+            <Map coords={geoLocationObj} searchResults={locationResults} />
+          </div>
         )
       ) : null}
       <About />

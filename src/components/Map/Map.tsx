@@ -28,7 +28,7 @@ const Map = ({
   }
 
   return (
-    <div id="map" className="mx-auto max-w-5xl h-[500px] mb-10">
+    <div className="mx-auto max-w-5xl h-[500px] mb-10">
       <MapContainer
         className="w-full h-full"
         center={[latitude, latitude]}
