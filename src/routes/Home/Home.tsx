@@ -18,7 +18,7 @@ const Home = () => {
     }
   };
   const [searchRun, setSearchRun] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [geoLocationObj, setGeoLocationObj] = useState({});
 
   console.log(geoLocationObj);
@@ -36,7 +36,7 @@ const Home = () => {
             <ChaoticOrbit size={60} speed={1.5} color="green" />
           </div>
         ) : (
-          <Map />
+          <Map coords={geoLocationObj} />
         )
       ) : null}
       <About />
