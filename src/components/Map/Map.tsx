@@ -4,12 +4,20 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-const Map = ({ coords }: { coords: any }) => {
+const Map = ({
+  coords,
+  searchResults,
+}: {
+  coords: any;
+  searchResults: any;
+}) => {
   const { latitude, longitude } = coords;
 
   let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
+    iconSize: [25, 35],
+    iconAnchor: [5, 30],
   });
 
   function MapView() {
@@ -23,8 +31,8 @@ const Map = ({ coords }: { coords: any }) => {
     <div id="map" className="mx-auto max-w-5xl h-[500px] mb-10">
       <MapContainer
         className="w-full h-full"
-        center={[longitude, latitude]}
-        zoom={13}
+        center={[latitude, latitude]}
+        zoom={5}
         scrollWheelZoom={true}
       >
         <TileLayer
@@ -34,6 +42,17 @@ const Map = ({ coords }: { coords: any }) => {
         <Marker icon={DefaultIcon} position={[latitude, longitude]}>
           <Popup>You are here!</Popup>
         </Marker>
+        {searchResults.map((result: any) => {
+          return (
+            <Marker
+              key={result.name}
+              icon={DefaultIcon}
+              position={[result.latitude, result.longitude]}
+            >
+              <Popup>{result.name}</Popup>
+            </Marker>
+          );
+        })}
         <MapView />
       </MapContainer>
     </div>
