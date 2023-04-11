@@ -9,9 +9,11 @@ import './styles.css';
 const SearchBox = ({
   searchRun,
   searchStart,
+  setGeoLocationObj,
 }: {
   searchRun: boolean;
   searchStart: any;
+  setGeoLocationObj: any;
 }) => {
   const [locationHover, setLocationHover] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -29,6 +31,13 @@ const SearchBox = ({
     } else {
       // Send search state and query back
       searchStart({ state: true, query: searchQuery });
+    }
+  };
+
+  const handleGeoLocateSearch = () => {
+    if (coords) {
+      searchStart({ state: true });
+      setGeoLocationObj(coords);
     }
   };
 
@@ -55,17 +64,9 @@ const SearchBox = ({
     });
 
   useEffect(() => {
-    console.log('enabled 1st', isGeolocationEnabled);
-    console.log('available 1st', isGeolocationAvailable);
-
     if (isGeolocationEnabled && isGeolocationAvailable) {
       setGeoLoading(true);
       setGeoLocation(false);
-
-      console.log('enabled', isGeolocationEnabled);
-      console.log('available', isGeolocationAvailable);
-      console.log(coords);
-
       if (coords) {
         setGeoLocation(false);
         setGeoLocation(true);
@@ -91,7 +92,9 @@ const SearchBox = ({
             id="search-id"
             className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 bg-search-bg bg-left-bottom bg-contain	bg-repeat-x`}
             type="text"
-            placeholder="WHERE ARE WE GOING?"
+            placeholder={`${
+              searchStart.state ? searchStart.query : 'WHERE ARE WE GOING?'
+            }`}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{}}
           />
@@ -104,11 +107,13 @@ const SearchBox = ({
           </button>
         </form>
         {geoLocation ? (
+          //Geo Location Button  Enabled
           <button
             onMouseEnter={() => setLocationHover(true)}
             onMouseLeave={() => setLocationHover(false)}
             onClick={(e) => {
               e.preventDefault();
+              handleGeoLocateSearch();
             }}
             type="button"
             className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
@@ -118,12 +123,11 @@ const SearchBox = ({
             {locationHover ? <TbLocationFilled /> : <TbLocation />}
           </button>
         ) : (
+          //Geo Location Button disabled
           <button
-            onClick={(e) => {
-              e.preventDefault();
-            }}
             type="button"
-            className={`disabled absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
+            disabled
+            className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
               searchRun ? 'top-[91px]' : 'top-[191px]'
             } ${isGeolocationEnabled && 'loading-geo'}`}
           >

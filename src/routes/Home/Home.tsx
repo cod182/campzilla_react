@@ -19,10 +19,17 @@ const Home = () => {
   };
   const [searchRun, setSearchRun] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [geoLocationObj, setGeoLocationObj] = useState({});
+
+  console.log(geoLocationObj);
 
   return (
     <>
-      <SearchBox searchRun={searchRun} searchStart={handleSearch} />
+      <SearchBox
+        searchRun={searchRun}
+        searchStart={handleSearch}
+        setGeoLocationObj={setGeoLocationObj}
+      />
       {searchRun ? (
         loading ? (
           <div className="w-full h-[200px] flex justify-center items-center">
