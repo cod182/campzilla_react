@@ -7,37 +7,41 @@ import { useGeolocated } from 'react-geolocated';
 import './styles.css';
 
 const SearchBox = ({
-  searchRun,
-  searchStart,
-  setGeoLocationObj,
+  setSearchRunning,
+  searchRunning,
+  handleTextSearch,
+  handleGpsSearch,
+  searchQuery,
+  setSearchQuery,
 }: {
-  searchRun: boolean;
-  searchStart: any;
-  setGeoLocationObj: any;
+  setSearchRunning: any;
+  searchQuery: string;
+  setSearchQuery: any;
+  searchRunning: boolean;
+  handleTextSearch: any;
+  handleGpsSearch: any;
 }) => {
   const [locationHover, setLocationHover] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [noSearchError, setNoSearchError] = useState(false);
   const [geoLocation, setGeoLocation] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false);
 
   // Called to handle searchbox part of submitting query
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    setNoSearchError(false);
     if (!searchQuery) {
       handleSearchError();
-      searchStart(false);
+      setSearchRunning(false);
     } else {
-      // Send search state and query back
-      searchStart({ state: true, query: searchQuery });
+      // set the search state to start
+      setSearchRunning(true);
+      handleTextSearch();
     }
   };
 
   const handleGeoLocateSearch = () => {
     if (coords) {
-      searchStart({ state: true });
-      setGeoLocationObj({
+      setSearchRunning(true);
+      handleGpsSearch({
         longitude: coords.longitude,
         latitude: coords.latitude,
       });
@@ -45,7 +49,6 @@ const SearchBox = ({
   };
 
   const handleSearchError = () => {
-    setNoSearchError(true);
     const searchInput = document.getElementById('search-id');
     const searchIcon = document.getElementById('search-icon');
 
@@ -83,7 +86,7 @@ const SearchBox = ({
   return (
     <div
       className={`w-screen bg-white flex flex-row items-center justify-center ${
-        searchRun ? 'h-[200px]' : 'h-[400px]'
+        searchRunning ? 'h-[200px]' : 'h-[400px]'
       }`}
     >
       <div className="mx-auto w-[48rem] h-full flex justify-center items-center relative">
@@ -95,9 +98,7 @@ const SearchBox = ({
             id="search-id"
             className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 bg-search-bg bg-left-bottom bg-contain	bg-repeat-x`}
             type="text"
-            placeholder={`${
-              searchStart.state ? searchStart.query : 'WHERE ARE WE GOING?'
-            }`}
+            placeholder={`${searchQuery ? searchQuery : 'WHERE ARE WE GOING?'}`}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{}}
           />
@@ -120,7 +121,7 @@ const SearchBox = ({
             }}
             type="button"
             className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
-              searchRun ? 'top-[91px]' : 'top-[191px]'
+              searchRunning ? 'top-[91px]' : 'top-[191px]'
             }`}
           >
             {locationHover ? <TbLocationFilled /> : <TbLocation />}
@@ -131,7 +132,7 @@ const SearchBox = ({
             type="button"
             disabled
             className={`absolute left-[12px] text-[20px] z-[2] transition-all ease-in-out duration-600 ${
-              searchRun ? 'top-[91px]' : 'top-[191px]'
+              searchRunning ? 'top-[91px]' : 'top-[191px]'
             } ${isGeolocationEnabled && 'loading-geo'}`}
           >
             {isGeolocationEnabled ? <TbLocation /> : <TbLocationOff />}
