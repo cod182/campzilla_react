@@ -9,22 +9,32 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [geoLocationObj, setGeoLocationObj] = useState({});
   const [locationResults, setLocationResults] = useState([]);
+  const [error, setError] = useState(false);
 
   const handleTextSearch = () => {
     setLoading(true);
 
     let queryCoordsPromise = getCoordinates(searchQuery);
     queryCoordsPromise.then((value) => {
-      setGeoLocationObj({
-        latitude: value.latitude,
-        longitude: value.longitude,
-      });
-      setLoading(false);
+      if (!value) {
+        setSearchRunning(false);
+        setLoading(false);
+        setSearchQuery('Invalid Search Term');
+        setError(true);
+      } else {
+        setError(false);
+        setGeoLocationObj({
+          latitude: value.latitude,
+          longitude: value.longitude,
+        });
+        setLoading(false);
+      }
     });
   };
 
   const handleGpsSearch = (coordsObj: any) => {
     setLoading(true);
+    setError(false);
     setGeoLocationObj(coordsObj);
     if (geoLocationObj) {
       setLoading(false);
@@ -33,6 +43,7 @@ const Home = () => {
   return (
     <>
       <SearchBox
+        searchError={error}
         setSearchRunning={setSearchRunning}
         searchRunning={searchRunning}
         handleTextSearch={handleTextSearch}

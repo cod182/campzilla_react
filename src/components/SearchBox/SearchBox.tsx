@@ -7,6 +7,7 @@ import { useGeolocated } from 'react-geolocated';
 import './styles.css';
 
 const SearchBox = ({
+  searchError,
   setSearchRunning,
   searchRunning,
   handleTextSearch,
@@ -14,6 +15,7 @@ const SearchBox = ({
   searchQuery,
   setSearchQuery,
 }: {
+  searchError: boolean;
   setSearchRunning: any;
   searchQuery: string;
   setSearchQuery: any;
@@ -37,6 +39,11 @@ const SearchBox = ({
       handleTextSearch();
     }
   };
+  useEffect(() => {
+    if (searchError) {
+      handleSearchError();
+    }
+  }, [searchError]);
 
   const handleGeoLocateSearch = () => {
     if (coords) {

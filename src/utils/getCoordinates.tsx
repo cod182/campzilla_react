@@ -26,6 +26,10 @@ export default getCoordinates;
 export const getCoordsFromResponse = (data: any) => {
   let searchLatLng = { latitude: 0, longitude: 0 };
 
+  if (data.items.length < 1) {
+    return false;
+  }
+
   const lat = data.items[0].position.lat; //set lat from the data item
   const lng = data.items[0].position.lng; //set lng from the data item
 
