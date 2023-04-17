@@ -49,8 +49,8 @@ const SearchBox = ({
     if (coords) {
       setSearchRunning(true);
       handleGpsSearch({
-        longitude: coords.longitude,
-        latitude: coords.latitude,
+        lng: coords.longitude,
+        lat: coords.latitude,
       });
     }
   };

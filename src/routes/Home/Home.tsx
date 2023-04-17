@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Map, SearchBox, About } from '../../components/index';
 import getCoordinates from '../../utils/getCoordinates';
 import { ChaoticOrbit } from '@uiball/loaders';
+import { useGetCoordinatesQuery } from '../../services/hereCoordinates';
 
 const Home = () => {
   const [searchRunning, setSearchRunning] = useState(false);
@@ -11,25 +12,25 @@ const Home = () => {
   const [locationResults, setLocationResults] = useState([]);
   const [error, setError] = useState(false);
 
-  const handleTextSearch = () => {
-    setLoading(true);
+  const {
+    data,
+    error: coordsError,
+    isLoading,
+  } = useGetCoordinatesQuery(searchQuery);
 
-    let queryCoordsPromise = getCoordinates(searchQuery);
-    queryCoordsPromise.then((value) => {
-      if (!value) {
-        setSearchRunning(false);
-        setLoading(false);
-        setSearchQuery('Invalid Search Term');
-        setError(true);
-      } else {
-        setError(false);
-        setGeoLocationObj({
-          latitude: value.latitude,
-          longitude: value.longitude,
-        });
-        setLoading(false);
-      }
-    });
+  const handleTextSearch = () => {
+    if (coordsError) {
+      setSearchRunning(false);
+      setLoading(false);
+      setSearchQuery('Invalid Search Term');
+      setError(true);
+    }
+    if (isLoading) {
+      setLoading(true);
+    }
+    setGeoLocationObj(data.items[0].position);
+    setError(false);
+    setLoading(false);
   };
 
   const handleGpsSearch = (coordsObj: any) => {
