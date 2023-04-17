@@ -12,7 +12,6 @@ const Map = ({
   searchResults: any;
 }) => {
   const { lat, lng } = coords;
-  console.log(lat, lng);
 
   let DefaultIcon = L.icon({
     iconUrl: icon,
