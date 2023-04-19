@@ -16,7 +16,7 @@ const Home = () => {
   const [geoLocationObj, setGeoLocationObj] = useState({ lat: 0, lng: 0 });
   const [locationResults, setLocationResults] = useState<any[]>([]);
   const [error, setError] = useState(false);
-  const [radius, setRadius] = useState(10000);
+  const [radius, setRadius] = useState(16093);
   const {
     data: locationsData,
     isLoading: loadingLocations,
@@ -76,6 +76,12 @@ const Home = () => {
     }
   };
 
+  const getMilesFromMeters = (radius: number) => {
+    const distKm = radius * 0.001; //convert meters to KM
+    const dist = distKm / 1.609; //converts KM to Miles
+    return dist.toFixed(1); //Returns distance in miles to 1 decimal place
+  };
+
   return (
     <>
       <SearchBox
@@ -89,13 +95,38 @@ const Home = () => {
       />
       {searchRunning ? (
         loading ? (
-          <div className="w-full h-[200px] flex justify-center items-center">
+          <div className="w-full h-[200px] flex flex-col justify-center items-center">
             <ChaoticOrbit size={60} speed={1.5} color="green" />
           </div>
         ) : (
           <>
             <div id="map">
               <Map coords={geoLocationObj} searchResults={[]} />
+            </div>
+            <div className="w-full h-[50px] flex justify-center items-center">
+              <p className="mr-2">Radius:</p>
+              <form className="flex justify-center items-center">
+                <input
+                  value={radius}
+                  type="range"
+                  name="radius-range"
+                  id="radius-range"
+                  step="8050"
+                  min="8000"
+                  max="80467"
+                  onChange={(e) => {
+                    setRadius(Number(e.target.value));
+                  }}
+                />
+              </form>
+              <p className="ml-2">{getMilesFromMeters(radius)} Miles</p>
+              <p className="ml-2 font-semibold">
+                Results
+                <span className="ml-2 font-normal">
+                  {radius}
+                  <span className="text-sm">(100 Max)</span>
+                </span>
+              </p>
             </div>
           </>
         )
