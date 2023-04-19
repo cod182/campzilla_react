@@ -1,4 +1,5 @@
 import { ImCross } from 'react-icons/im';
+import Result from '../Result/Result';
 
 const Results = ({ locations }: { locations: any }) => {
   if (locations.items.length === 0) {
@@ -12,12 +13,13 @@ const Results = ({ locations }: { locations: any }) => {
     );
   }
   return (
-    <div className="max-w-5xl h-auto mx-auto">
-      <h1>Results</h1>
-      {locations.items.map((location: any) => {
+    <div className="max-w-5xl h-auto mx-auto mt-6 flex flex-col justify-center items-center">
+      <h1 className="text-2xl font-bold">Results</h1>
+      <hr className="border-b border-[1px] border-gray-400 w-full my-4" />
+      {locations.items.map((location: object) => {
         return (
-          <div className="w-full h-200px mx-auto flex flex-col justify-center items-center bg-slate-600 text-white">
-            {location.title}
+          <div className="max-w-5xl h-auto my-5">
+            <Result resultData={location} />
           </div>
         );
       })}
