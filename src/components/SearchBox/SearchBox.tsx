@@ -26,17 +26,19 @@ const SearchBox = ({
   const [locationHover, setLocationHover] = useState(false);
   const [geoLocation, setGeoLocation] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false);
+  const [query, setQuery] = useState('');
 
   // Called to handle searchbox part of submitting query
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (!searchQuery) {
+    if (!query) {
       handleSearchError();
       setSearchRunning(false);
     } else {
       // set the search state to start
+
       setSearchRunning(true);
-      handleTextSearch();
+      handleTextSearch(query);
     }
   };
   useEffect(() => {
@@ -106,7 +108,7 @@ const SearchBox = ({
             className={`border-2 rounded-3xl absolute text-center capitalize h-full w-full px-[42px] transition-all ease-in-out duration-600 bg-search-bg bg-left-bottom bg-contain	bg-repeat-x`}
             type="text"
             placeholder={`${searchQuery ? searchQuery : 'WHERE ARE WE GOING?'}`}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
             style={{}}
           />
           <button

@@ -1,7 +1,16 @@
 const hereApiKey = process.env.REACT_APP_HERE_API;
 
-export async function fetchPosition(query: string): Promise<any> {
-  const url = `https://geocode.search.hereapi.com/v1/geocode?q=${query}&in=countryCode:GBR&apiKey=${hereApiKey}`; //combining the api url with the search term and limiting to GBR
+export async function getResultsInArea({
+  lat,
+  lng,
+  radius,
+}: {
+  lat: number;
+  lng: number;
+  radius: number;
+}): Promise<any> {
+  const keyword = 'campground';
+  const url = `https://discover.search.hereapi.com/v1/discover?q=${keyword}&in=circle:${lat},${lng};r=${radius}&limit=100&apiKey=${hereApiKey}`;
 
   const response = await fetch(url)
     .then((response) => {
