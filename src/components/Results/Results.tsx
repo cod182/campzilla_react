@@ -16,10 +16,10 @@ const Results = ({ locations }: { locations: any }) => {
     <div className="max-w-5xl h-auto min-h-[300px] mx-auto mt-6 flex flex-col justify-center items-center">
       <h1 className="text-2xl font-bold">Results</h1>
       <hr className="border-b border-[1px] border-gray-400 w-full my-4" />
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 grid-flow-rows gap-4">
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 grid-flow-rows gap-4 mb-6s">
         {locations.items.map((location: any) => {
           return (
-            <div key={location.id} className="h-auto">
+            <div key={location.id} className="h-auto w-full">
               <Result resultData={location} />
             </div>
           );
