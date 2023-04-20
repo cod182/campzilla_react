@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Map, SearchBox, About } from '../../components/index';
+import {
+  Map,
+  SearchBox,
+  About,
+  RadiusBar,
+  Results,
+  WeatherBar,
+} from '../../components/index';
 import { fetchPosition } from '../../services/hereGeocodeApi';
 import { ChaoticOrbit } from '@uiball/loaders';
-import Results from '../../components/Results/Results';
 import useFetch from 'react-fetch-hook';
-import RadiusBar from '../../components/RadiusBar/RadiusBar';
 
 const Home = () => {
   const keyword = 'campground';
@@ -82,6 +87,7 @@ const Home = () => {
               radius={radius}
               setRadius={setRadius}
             />
+            <WeatherBar coords={geoLocationObj} />
             {loadingLocations ? (
               <div className="w-full h-[200px] flex justify-center items-center">
                 <ChaoticOrbit size={60} speed={1.5} color="green" />

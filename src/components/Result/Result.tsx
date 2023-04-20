@@ -1,37 +1,27 @@
 import { useState } from 'react';
 import { getMilesFromMeters } from '../../utils/useGetMiles';
 import { FcGoogle } from 'react-icons/fc';
-import { BsApple } from 'react-icons/bs';
+import { BsApple, BsFillTelephoneFill } from 'react-icons/bs';
+import { CgWebsite } from 'react-icons/cg';
 import { AiFillCaretDown } from 'react-icons/ai';
-import useFetch from 'react-fetch-hook';
 
 const Result = ({ resultData }: { resultData: any }) => {
   const [viewMore, setViewMore] = useState(false);
-  const openApiKey = process.env.REACT_APP_OPEN_WEATHER_API;
-  const {
-    data: weatherData,
-    isLoading: weatherLoading,
-    error: weatherError,
-  } = useFetch<any>(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${resultData.position.lat}&lon=${resultData.position.lng}&units=metric&appid=${openApiKey}`
-  );
 
   console.log(resultData);
 
-  console.log(weatherData);
-  
   return (
     <section
-      className={`overflow-hidden w-full flex flex-col justify-start rounded-lg bg-gray-200 p-5 shadow-lg relative ease-in-out transition-all duration-300 ${
+      className={`group overflow-hidden w-full flex flex-col justify-start rounded-lg bg-gray-200 p-5 shadow-lg relative ease-in-out transition-all duration-300 ${
         viewMore
           ? 'max-h-[1000px] min-h-[300px]'
           : 'max-h-[200px] min-h-[200px]'
       }`}
     >
-      <div className="w-full h-auto group mb-4">
+      <div className="w-full h-auto  mb-4">
         <a
           href="#"
-          className=" text-[#23abff] group-hover:text-[#4ab836] sm:text-[30px] md:text-[40px] lg:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
+          className="overflow-x-scroll text-[#23abff] group-hover:text-[#4ab836] sm:text-[30px] md:text-[40px] lg:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
         >
           {resultData.title}
         </a>
@@ -65,8 +55,9 @@ const Result = ({ resultData }: { resultData: any }) => {
           </p>
           <div>
             {resultData?.contacts?.[0]?.phone ? (
-              <p className="my-1">
-                Phone:&nbsp;
+              <p className="my-1 flex items-center">
+                <BsFillTelephoneFill />
+                &nbsp;
                 <a
                   className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
                   href={`tel:+${resultData?.contacts?.[0]?.phone?.[0].value}`}
@@ -76,8 +67,9 @@ const Result = ({ resultData }: { resultData: any }) => {
               </p>
             ) : null}
             {resultData?.contacts?.[0]?.www ? (
-              <p className="my-1">
-                Website:&nbsp;
+              <p className="my-1 flex items-center">
+                <CgWebsite />
+                &nbsp;
                 <a
                   className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
                   href={resultData?.contacts?.[0]?.www?.[0]?.value}
@@ -90,7 +82,6 @@ const Result = ({ resultData }: { resultData: any }) => {
             ) : null}
           </div>
         </div>
-        <div className="w-[30%]">Single Weather Icon</div>
       </div>
       {/* Dropdown view more */}
       {viewMore === true && (
