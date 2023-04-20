@@ -47,13 +47,43 @@ const Map = ({
           <Popup>You are here!</Popup>
         </Marker>
         {searchResults.items.map((result: any) => {
+          console.log(result);
           return (
             <Marker
-              key={result.name}
+              key={result.id}
               icon={DefaultIcon}
               position={[result.position.lat, result.position.lng]}
             >
-              <Popup>{result.name}</Popup>
+              <Popup>
+                <div>
+                  <p>{result.title}</p>
+
+                  <a
+                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    href={`tel:+${result?.contacts?.[0]?.phone?.[0]?.value}`}
+                  >
+                    {result?.contacts?.[0]?.phone?.[0]?.value}
+                  </a>
+
+                  <a
+                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    href={result?.contacts?.[0]?.email?.[0]?.value}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {result?.contacts?.[0]?.email?.[0]?.value.slice(11, 50)}
+                  </a>
+
+                  <a
+                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    href={result?.contacts?.[0]?.[0]?.www?.[0]?.value}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {result?.contacts?.[0]?.[0]?.www?.[0]?.value.slice(11, 50)}
+                  </a>
+                </div>
+              </Popup>
             </Marker>
           );
         })}

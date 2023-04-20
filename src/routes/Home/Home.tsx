@@ -22,7 +22,7 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [radius, setRadius] = useState(16093);
   const [mapFocusCoords, setMapFocusCoords] = useState({ lat: 0, lng: 0 });
-const [mapZoom, setMapZoom] = useState(10)
+  const [mapZoom, setMapZoom] = useState(10);
   const {
     data: locationsData,
     isLoading: loadingLocations,
@@ -44,6 +44,7 @@ const [mapZoom, setMapZoom] = useState(10)
     } else {
       setError(false);
       setSearchRunning(true);
+      setMapZoom(10);
       setGeoLocationObj({
         lat: positionData.items[0].position.lat,
         lng: positionData.items[0].position.lng,
@@ -61,6 +62,7 @@ const [mapZoom, setMapZoom] = useState(10)
     setError(false);
     setGeoLocationObj(coordsObj);
     if (geoLocationObj) {
+      setMapZoom(10);
       setMapFocusCoords(geoLocationObj);
       setSearchRunning(true);
       setLoading(false);
