@@ -24,7 +24,27 @@ const Result = ({ resultData }: { resultData: any }) => {
         <div className="border-b-4 border-[#23abff] group-hover:border-[#4ab836] w-[40px] group-hover:w-full transition-all ease-ine-out duration-1000"></div>
       </div>
       <div className="flex flex-row justify-start items-center rounded-lg">
-        <div className="w-[50%]">
+        <div className="w-[70%]">
+          <div className="flex flex-row jusitfy-space items-center">
+            <h5>Navigate:</h5>
+
+            <a
+              href={`https://maps.google.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.county},${resultData?.address?.postalCode}`}
+              target="_blank"
+              rel="noreffer"
+              className="w-[25px] h-[25px] flex justify-center items-center mx-2"
+            >
+              <FcGoogle className="w-full h-full" />
+            </a>
+            <a
+              href={`http://maps.apple.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.county},${resultData?.address?.postalCode}`}
+              target="_blank"
+              rel="noreffer"
+              className="w-[25px] h-[25px] flex justify-center items-center mx-2"
+            >
+              <BsApple className="w-[90%] h-[90%]" />
+            </a>
+          </div>
           <p>
             Distance: <span>{getMilesFromMeters(resultData.distance)}</span>
             Miles
@@ -49,12 +69,16 @@ const Result = ({ resultData }: { resultData: any }) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  {resultData?.contacts?.[0]?.www?.[0]?.value}
+                  {resultData?.contacts?.[0]?.www?.[0]?.value.slice(11, 50)}
                 </a>
               </p>
             ) : null}
           </div>
-
+        </div>
+        <div className="w-[30%]">Single Weather Icon</div>
+      </div>
+      {viewMore === true && (
+        <div className="flex flex-col justify-between items-center">
           <div className="my-2">
             <h4 className="font-semibold">Address:</h4>
 
@@ -64,31 +88,10 @@ const Result = ({ resultData }: { resultData: any }) => {
               <p>{resultData?.address?.county}</p>
               <p>{resultData?.address?.postalCode}</p>
             </address>
-            <div className="flex flex-row jusitfy-space items-center">
-              <h5>Navigate:</h5>
-
-              <a
-                href={`https://maps.google.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.county},${resultData?.address?.postalCode}`}
-                target="_blank"
-                rel="noreffer"
-                className="w-[25px] h-[25px] flex justify-center items-center mx-2"
-              >
-                <FcGoogle className="w-full h-full" />
-              </a>
-              <a
-                href={`http://maps.apple.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.county},${resultData?.address?.postalCode}`}
-                target="_blank"
-                rel="noreffer"
-                className="w-[25px] h-[25px] flex justify-center items-center mx-2"
-              >
-                <BsApple className="w-[90%] h-[90%]" />
-              </a>
-            </div>
           </div>
+          <div></div>
         </div>
-        <div>//Weather</div>
-      </div>
-      {viewMore === true && <div>HALLOO!</div>}
+      )}
       <div className="w-[40px] h-[40px] absolute right-[10px] bottom-[10px]">
         <AiFillDownCircle
           className={`${
