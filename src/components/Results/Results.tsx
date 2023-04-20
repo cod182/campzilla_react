@@ -19,7 +19,7 @@ const Results = ({ locations }: { locations: any }) => {
       <div className="grid md:grid-cols-1 lg:grid-cols-2 grid-flow-rows gap-4">
         {locations.items.map((location: any) => {
           return (
-            <div key={location.id} className="h-auto min-h-[300px] my-5 mx-5">
+            <div key={location.id} className="h-auto">
               <Result resultData={location} />
             </div>
           );
