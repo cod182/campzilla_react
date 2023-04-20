@@ -22,6 +22,7 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [radius, setRadius] = useState(16093);
   const [mapFocusCoords, setMapFocusCoords] = useState({ lat: 0, lng: 0 });
+const [mapZoom, setMapZoom] = useState(10)
   const {
     data: locationsData,
     isLoading: loadingLocations,
@@ -89,7 +90,8 @@ const Home = () => {
               <Map
                 coords={geoLocationObj}
                 mapFocus={mapFocusCoords}
-                searchResults={[]}
+                searchResults={locationsData}
+                mapZoom={mapZoom}
               />
             </div>
             <RadiusBar
@@ -106,6 +108,7 @@ const Home = () => {
               <Results
                 locations={locationsData}
                 setMapFocus={setMapFocusCoords}
+                setMapZoom={setMapZoom}
               />
             )}
           </>

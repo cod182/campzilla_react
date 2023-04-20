@@ -8,10 +8,12 @@ const Map = ({
   coords,
   searchResults,
   mapFocus,
+  mapZoom,
 }: {
   coords: any;
   searchResults: any;
   mapFocus: any;
+  mapZoom: number;
 }) => {
   const { lat, lng } = coords;
 
@@ -24,7 +26,7 @@ const Map = ({
 
   function MapView() {
     let map = useMap();
-    map.setView([mapFocus.lat, mapFocus.lng], map.getZoom());
+    map.setView([mapFocus.lat, mapFocus.lng], mapZoom);
     //Sets geographical center and zoom for the view of the map
     return null;
   }
@@ -34,7 +36,7 @@ const Map = ({
       <MapContainer
         className="w-full h-full"
         center={[lat, lng]}
-        zoom={12}
+        zoom={mapZoom}
         scrollWheelZoom={true}
       >
         <TileLayer
@@ -44,12 +46,12 @@ const Map = ({
         <Marker icon={DefaultIcon} position={[lat, lng]}>
           <Popup>You are here!</Popup>
         </Marker>
-        {searchResults.map((result: any) => {
+        {searchResults.items.map((result: any) => {
           return (
             <Marker
               key={result.name}
               icon={DefaultIcon}
-              position={[result.latitude, result.longitude]}
+              position={[result.position.lat, result.position.lng]}
             >
               <Popup>{result.name}</Popup>
             </Marker>
