@@ -6,8 +6,13 @@ import { CgWebsite } from 'react-icons/cg';
 import { MdWebAssetOff, MdEmail, MdSmsFailed } from 'react-icons/md';
 import { AiFillCaretDown } from 'react-icons/ai';
 
-
-const Result = ({ resultData }: { resultData: any }) => {
+const Result = ({
+  resultData,
+  setMapFocus,
+}: {
+  resultData: any;
+  setMapFocus: any;
+}) => {
   const [viewMore, setViewMore] = useState(false);
 
   return (
@@ -21,6 +26,12 @@ const Result = ({ resultData }: { resultData: any }) => {
       {/* Title */}
       <div className="w-[90%] mb-4">
         <a
+          onClick={() =>
+            setMapFocus({
+              lat: resultData?.position?.lat,
+              lng: resultData?.position?.lng,
+            })
+          }
           href="#"
           className="w-full text-[#23abff] group-hover:text-[#4ab836] sm:text-[30px] md:text-[40px] lg:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
         >

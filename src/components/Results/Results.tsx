@@ -3,7 +3,13 @@ import Fade from 'react-reveal/Fade';
 import { ImCross } from 'react-icons/im';
 import Result from '../Result/Result';
 
-const Results = ({ locations }: { locations: any }) => {
+const Results = ({
+  locations,
+  setMapFocus,
+}: {
+  locations: any;
+  setMapFocus: any;
+}) => {
   const [maxResults, setMaxResults] = useState(10);
 
   let locationsLimited = locations.items.slice(0, maxResults);
@@ -27,7 +33,7 @@ const Results = ({ locations }: { locations: any }) => {
           return (
             <div key={location.id} className="h-auto w-full">
               <Fade buttom>
-                <Result resultData={location} />
+                <Result resultData={location} setMapFocus={setMapFocus} />
               </Fade>
             </div>
           );
@@ -35,7 +41,7 @@ const Results = ({ locations }: { locations: any }) => {
       </div>
       <button
         type="button"
-        className={`w-auto px-6 py-4 my-6 bg-blue-500 hover:bg-blue-400 text-white rounded-lg ${
+        className={`w-full px-6 py-4 my-6 bg-blue-500 hover:bg-blue-400 text-white rounded-lg ${
           maxResults >= locations.items.length && 'hidden'
         }`}
         onClick={() => {

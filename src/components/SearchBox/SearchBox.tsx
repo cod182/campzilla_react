@@ -25,7 +25,6 @@ const SearchBox = ({
 }) => {
   const [locationHover, setLocationHover] = useState(false);
   const [geoLocation, setGeoLocation] = useState(false);
-  const [geoLoading, setGeoLoading] = useState(false);
   const [query, setQuery] = useState('');
 
   // Called to handle searchbox part of submitting query
@@ -80,7 +79,6 @@ const SearchBox = ({
 
   useEffect(() => {
     if (isGeolocationEnabled && isGeolocationAvailable) {
-      setGeoLoading(true);
       setGeoLocation(false);
       if (coords) {
         setGeoLocation(false);

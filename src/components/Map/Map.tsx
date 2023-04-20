@@ -7,9 +7,11 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 const Map = ({
   coords,
   searchResults,
+  mapFocus,
 }: {
   coords: any;
   searchResults: any;
+  mapFocus: any;
 }) => {
   const { lat, lng } = coords;
 
@@ -22,7 +24,7 @@ const Map = ({
 
   function MapView() {
     let map = useMap();
-    map.setView([lat, lng], map.getZoom());
+    map.setView([mapFocus.lat, mapFocus.lng], map.getZoom());
     //Sets geographical center and zoom for the view of the map
     return null;
   }
@@ -32,7 +34,7 @@ const Map = ({
       <MapContainer
         className="w-full h-full"
         center={[lat, lng]}
-        zoom={5}
+        zoom={12}
         scrollWheelZoom={true}
       >
         <TileLayer

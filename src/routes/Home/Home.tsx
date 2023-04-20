@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Map,
   SearchBox,
@@ -21,6 +21,7 @@ const Home = () => {
   const [geoLocationObj, setGeoLocationObj] = useState({ lat: 0, lng: 0 });
   const [error, setError] = useState(false);
   const [radius, setRadius] = useState(16093);
+  const [mapFocusCoords, setMapFocusCoords] = useState({ lat: 0, lng: 0 });
   const {
     data: locationsData,
     isLoading: loadingLocations,
@@ -46,6 +47,10 @@ const Home = () => {
         lat: positionData.items[0].position.lat,
         lng: positionData.items[0].position.lng,
       });
+      setMapFocusCoords({
+        lat: positionData.items[0].position.lat,
+        lng: positionData.items[0].position.lng,
+      });
       setLoading(false);
     }
   };
@@ -55,6 +60,7 @@ const Home = () => {
     setError(false);
     setGeoLocationObj(coordsObj);
     if (geoLocationObj) {
+      setMapFocusCoords(geoLocationObj);
       setSearchRunning(true);
       setLoading(false);
     }
@@ -80,7 +86,11 @@ const Home = () => {
         ) : (
           <>
             <div id="map">
-              <Map coords={geoLocationObj} searchResults={[]} />
+              <Map
+                coords={geoLocationObj}
+                mapFocus={mapFocusCoords}
+                searchResults={[]}
+              />
             </div>
             <RadiusBar
               locationAmount={locationsData.items.length}
@@ -93,7 +103,10 @@ const Home = () => {
                 <ChaoticOrbit size={60} speed={1.5} color="green" />
               </div>
             ) : (
-              <Results locations={locationsData} />
+              <Results
+                locations={locationsData}
+                setMapFocus={setMapFocusCoords}
+              />
             )}
           </>
         )
