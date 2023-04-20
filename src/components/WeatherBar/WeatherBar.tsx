@@ -2,7 +2,6 @@ import useFetch from 'react-fetch-hook';
 
 const WeatherBar = (coords: any) => {
   const openApiKey = process.env.REACT_APP_OPEN_WEATHER_API;
-  console.log(coords);
   const {
     data: weatherData,
     isLoading: weatherLoading,

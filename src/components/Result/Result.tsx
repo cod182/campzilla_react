@@ -6,10 +6,9 @@ import { CgWebsite } from 'react-icons/cg';
 import { MdWebAssetOff, MdEmail, MdSmsFailed } from 'react-icons/md';
 import { AiFillCaretDown } from 'react-icons/ai';
 
+
 const Result = ({ resultData }: { resultData: any }) => {
   const [viewMore, setViewMore] = useState(false);
-
-  console.log(resultData);
 
   return (
     <section
