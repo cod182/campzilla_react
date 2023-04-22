@@ -4,7 +4,7 @@ import L from 'leaflet';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import MapMarker from '../MapMarker/MapMarker';
+import { MapMarker } from '../index';
 
 const Map = ({
   coords,
