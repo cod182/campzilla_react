@@ -2,6 +2,7 @@ import useFetch from 'react-fetch-hook';
 import { DotPulse } from '@uiball/loaders';
 import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
+import windAni from '../../assets/images/wind-turbine.gif';
 
 const WeatherBar = ({ coords }: { coords: any }) => {
   const openApiKey = process.env.REACT_APP_OPEN_WEATHER_API;
@@ -31,14 +32,17 @@ const WeatherBar = ({ coords }: { coords: any }) => {
     <div className="w-full h-autoflex flex-col justify-center items-center mt-4 sm:mt-1">
       <div className="h-[70px] my-4 ml-6 flex flex-row justify-center items-center  select-none">
         <p>Current Weather:&nbsp;</p>
-        <div className="w-auto h-full flex justify-center items-center bg-[#00caffa1] rounded-xl px-2 mx-2">
-          <p className="capitalize">
-            {weatherData?.current?.weather?.[0]?.main}
-          </p>
-          <img
-            src={`https://openweathermap.org/img/w/${weatherData?.current?.weather?.[0]?.icon}.png`}
-            alt={`The current weather is ${weatherData?.current?.weather?.[0]?.main}`}
-          />
+        <div className="w-auto h-full flex justify-center items-center bg-[#00caffa1] rounded-xl px-2 mx-2 font-semibold">
+          <div className="flex flex-col justify-center items-center p-2 text-sm mr-2">
+            <img
+              className="h-[40px] w-[40px]"
+              src={`https://openweathermap.org/img/w/${weatherData?.current?.weather?.[0]?.icon}.png`}
+              alt={`The current weather is ${weatherData?.current?.weather?.[0]?.main}`}
+            />
+            <p className="capitalize">
+              {weatherData?.current?.weather?.[0]?.main}
+            </p>
+          </div>
 
           <div className="flex flex-col items-end justify-center text-sm h-full">
             <p className="capitalize">
@@ -56,23 +60,42 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
         <div className="flex flex-row items-end justify-between text-sm h-full select-none">
           <div
-            className={`relative overflow-hidden w-[70px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
+            className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
             style={{
               backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(135 230 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center">
+            <div className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold">
               <p className="z-[2] text-center text-sm">Cloud Cover</p>
               <p className="capitalize z-[2]">
                 {weatherData?.current?.clouds}%
               </p>
             </div>
           </div>
-          <div className="w-auto h-full flex justify-center items-center bg-[#00caffa1] rounded-xl px-2 mx-2">
-            <p>Wind Speed:&nbsp;</p>
-            <p className="capitalize">
-              {weatherData?.current?.wind_speed.toFixed(0)} mph
-            </p>
+          <div
+            className={`relative overflow-hidden w-[100px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff] bg-no-repeat	bg-left-bottom	`}
+            style={{
+              backgroundImage: `url(${windAni})`,
+            }}
+          >
+            <div className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2">
+              <p className="text-sm">Wind Speed</p>
+              <p className="capitalize">
+                {weatherData?.current?.wind_speed.toFixed(0)} mph
+              </p>
+              <p className="text-[5px] absolute bottom-[-6px]">
+                <a
+                  target="_blank"
+                  href="https://icons8.com/icon/Q83OPXa8MS8N/wind-turbine"
+                >
+                  Wind Turbine
+                </a>
+                icon by
+                <a target="_blank" href="https://icons8.com">
+                  Icons8
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
