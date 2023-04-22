@@ -33,7 +33,7 @@ const Result = ({
               lat: resultData?.position?.lat,
               lng: resultData?.position?.lng,
             });
-            setMapZoom(15);
+            setMapZoom(17);
           }}
           href="#"
           className="w-full text-[#23abff] group-hover:text-[#4ab836] sm:text-[30px] md:text-[40px] lg:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"

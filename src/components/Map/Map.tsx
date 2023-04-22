@@ -1,8 +1,11 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { FcGoogle } from 'react-icons/fc';
+import { BsApple } from 'react-icons/bs';
 
 const Map = ({
   coords,
@@ -32,7 +35,7 @@ const Map = ({
   }
 
   return (
-    <div className="mx-auto max-w-5xl h-[500px] mb-10">
+    <div className="mx-auto max-w-5xl h-[500px] mb-10 rounded-xl overflow-hidden">
       <MapContainer
         className="w-full h-full"
         center={[lat, lng]}
@@ -59,29 +62,48 @@ const Map = ({
                   <p>{result.title}</p>
 
                   <a
-                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    className="hover:text-[#4ab836] ease-in-out transition-all duration-300 block"
                     href={`tel:+${result?.contacts?.[0]?.phone?.[0]?.value}`}
                   >
                     {result?.contacts?.[0]?.phone?.[0]?.value}
                   </a>
 
                   <a
-                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    className="hover:text-[#4ab836] ease-in-out transition-all duration-300 block"
                     href={result?.contacts?.[0]?.email?.[0]?.value}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {result?.contacts?.[0]?.email?.[0]?.value.slice(11, 50)}
+                    {result?.contacts?.[0]?.email?.[0]?.value}
                   </a>
 
                   <a
-                    className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
+                    className="hover:text-[#4ab836] ease-in-out transition-all duration-300 block"
                     href={result?.contacts?.[0]?.[0]?.www?.[0]?.value}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {result?.contacts?.[0]?.[0]?.www?.[0]?.value.slice(11, 50)}
+                    {result?.contacts?.[0]?.www?.[0]?.value.slice(11, 50)}
                   </a>
+                  <div className="flex flex-row jusitfy-space items-center mt-2">
+                    <h5>Navigate:</h5>
+                    <a
+                      href={`https://maps.google.com/?q=${result?.title}?.address?.city},${result?.address?.county},${result?.address?.postalCode}`}
+                      target="_blank"
+                      rel="noreffer"
+                      className="w-[20px] h-[20px] flex justify-center items-center mx-2"
+                    >
+                      <FcGoogle className="w-full h-full" />
+                    </a>
+                    <a
+                      href={`http://maps.apple.com/?q=${result?.title},${result?.address?.city},${result?.address?.county},${result?.address?.postalCode}`}
+                      target="_blank"
+                      rel="noreffer"
+                      className="w-[20px] h-[20px] flex justify-center items-center mx-2"
+                    >
+                      <BsApple className="w-[90%] h-[90%]" />
+                    </a>
+                  </div>
                 </div>
               </Popup>
             </Marker>

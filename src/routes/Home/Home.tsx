@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Map,
   SearchBox,
@@ -30,6 +30,10 @@ const Home = () => {
   } = useFetch<any>(
     `https://discover.search.hereapi.com/v1/discover?q=${keyword}&in=circle:${geoLocationObj.lat},${geoLocationObj.lng};r=${radius}&limit=100&apiKey=${hereApiKey}`
   );
+
+  useEffect(() => {
+    setMapZoom(10);
+  }, [radius]);
 
   const handleTextSearch = async (query: string) => {
     setLoading(true);
