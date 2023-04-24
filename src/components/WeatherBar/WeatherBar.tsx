@@ -31,10 +31,16 @@ const WeatherBar = ({ coords }: { coords: any }) => {
     return null;
   }
   return (
-    <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1">
+    <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto">
       <div className="h-[70px] my-4 ml-6 flex flex-row justify-center items-center  select-none">
-        <p>Current Weather:&nbsp;</p>
-        <div className="w-auto h-full flex justify-center items-center bg-[#00caffa1] rounded-xl px-2 mx-2 font-semibold">
+        <p className="text-white font-semibold">Current Weather:&nbsp;</p>
+        {/* Weather & Temperature */}
+        <div
+          className="relative w-auto h-full flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
+          style={{
+            backdropFilter: 'blur(1px)',
+          }}
+        >
           <div className="flex flex-col justify-center items-center p-2 text-sm mr-2">
             <img
               className="h-[40px] w-[40px]"
@@ -59,28 +65,46 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             </p>
           </div>
         </div>
-
-        <div className="flex flex-row items-end justify-between text-sm h-full select-none">
+        {/* Cloud Cover */}
+        <div
+          className="flex flex-row items-end justify-between text-sm h-full select-none"
+          style={{
+            backdropFilter: 'blur(1px)',
+          }}
+        >
           <div
             className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
             style={{
               backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold">
+            <div
+              className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
+              style={{
+                backdropFilter: 'blur(1px)',
+              }}
+            >
               <p className="z-[2] text-center text-sm">Cloud Cover</p>
               <p className="capitalize z-[2]">
                 {weatherData?.current?.clouds}%
               </p>
             </div>
           </div>
+          {/* Wind Speed */}
           <div
-            className={`relative overflow-hidden w-[100px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff] bg-no-repeat	bg-left-bottom	`}
+            className={`relative overflow-hidden w-[100px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff0] bg-no-repeat	bg-left-bottom	`}
             style={{
               backgroundImage: `url(${windAni})`,
+
+              backdropFilter: 'blur(1px)',
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10	">
+            <div
+              className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10"
+              style={{
+                backdropFilter: 'blur(1px)',
+              }}
+            >
               <p className="text-sm">Wind Speed</p>
               <p className="capitalize">
                 {weatherData?.current?.wind_speed.toFixed(0)} mph
@@ -116,7 +140,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
         </div>
       </div>
       <div className="ml-6 flex flex-row justify-center items-center select-none">
-        <p>Forcast: </p>
+        <p className="text-white font-semibold">Forcast: </p>
         <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
           <p
             onClick={() => {
