@@ -17,7 +17,7 @@ const SideNavBar = ({
     >
       <div className="h-auto p-6 w-full flex ">
         <a
-          href="#"
+          href="#about"
           className="text-[50px] hover:text-[#49e940] transition-all ease-in-out duration-300"
           onClick={(e) => {
             e.preventDefault();

@@ -6,9 +6,11 @@ import Result from '../Result/Result';
 const Results = ({
   locations,
   setMapFocus,
+  setMapZoom,
 }: {
   locations: any;
   setMapFocus: any;
+  setMapZoom: any;
 }) => {
   const [maxResults, setMaxResults] = useState(10);
 
@@ -33,7 +35,11 @@ const Results = ({
           return (
             <div key={location.id} className="h-auto w-full">
               <Fade buttom>
-                <Result resultData={location} setMapFocus={setMapFocus} />
+                <Result
+                  resultData={location}
+                  setMapFocus={setMapFocus}
+                  setMapZoom={setMapZoom}
+                />
               </Fade>
             </div>
           );

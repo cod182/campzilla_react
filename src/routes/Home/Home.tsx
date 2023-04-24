@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Map,
   SearchBox,
@@ -22,6 +22,7 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [radius, setRadius] = useState(16093);
   const [mapFocusCoords, setMapFocusCoords] = useState({ lat: 0, lng: 0 });
+  const [mapZoom, setMapZoom] = useState(10);
   const {
     data: locationsData,
     isLoading: loadingLocations,
@@ -29,6 +30,10 @@ const Home = () => {
   } = useFetch<any>(
     `https://discover.search.hereapi.com/v1/discover?q=${keyword}&in=circle:${geoLocationObj.lat},${geoLocationObj.lng};r=${radius}&limit=100&apiKey=${hereApiKey}`
   );
+
+  useEffect(() => {
+    setMapZoom(10);
+  }, [radius]);
 
   const handleTextSearch = async (query: string) => {
     setLoading(true);
@@ -43,6 +48,7 @@ const Home = () => {
     } else {
       setError(false);
       setSearchRunning(true);
+      setMapZoom(10);
       setGeoLocationObj({
         lat: positionData.items[0].position.lat,
         lng: positionData.items[0].position.lng,
@@ -60,6 +66,7 @@ const Home = () => {
     setError(false);
     setGeoLocationObj(coordsObj);
     if (geoLocationObj) {
+      setMapZoom(10);
       setMapFocusCoords(geoLocationObj);
       setSearchRunning(true);
       setLoading(false);
@@ -89,7 +96,8 @@ const Home = () => {
               <Map
                 coords={geoLocationObj}
                 mapFocus={mapFocusCoords}
-                searchResults={[]}
+                searchResults={locationsData}
+                mapZoom={mapZoom}
               />
             </div>
             <RadiusBar
@@ -106,6 +114,7 @@ const Home = () => {
               <Results
                 locations={locationsData}
                 setMapFocus={setMapFocusCoords}
+                setMapZoom={setMapZoom}
               />
             )}
           </>

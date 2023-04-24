@@ -1,17 +1,21 @@
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { MapMarker } from '../index';
 
 const Map = ({
   coords,
   searchResults,
   mapFocus,
+  mapZoom,
 }: {
   coords: any;
   searchResults: any;
   mapFocus: any;
+  mapZoom: number;
 }) => {
   const { lat, lng } = coords;
 
@@ -24,17 +28,17 @@ const Map = ({
 
   function MapView() {
     let map = useMap();
-    map.setView([mapFocus.lat, mapFocus.lng], map.getZoom());
+    map.setView([mapFocus.lat, mapFocus.lng], mapZoom);
     //Sets geographical center and zoom for the view of the map
     return null;
   }
 
   return (
-    <div className="mx-auto max-w-5xl h-[500px] mb-10">
+    <div className="mx-auto max-w-5xl h-[500px] mb-10 rounded-xl overflow-hidden">
       <MapContainer
         className="w-full h-full"
         center={[lat, lng]}
-        zoom={12}
+        zoom={mapZoom}
         scrollWheelZoom={true}
       >
         <TileLayer
@@ -44,16 +48,8 @@ const Map = ({
         <Marker icon={DefaultIcon} position={[lat, lng]}>
           <Popup>You are here!</Popup>
         </Marker>
-        {searchResults.map((result: any) => {
-          return (
-            <Marker
-              key={result.name}
-              icon={DefaultIcon}
-              position={[result.latitude, result.longitude]}
-            >
-              <Popup>{result.name}</Popup>
-            </Marker>
-          );
+        {searchResults.items.map((result: any) => {
+          return <MapMarker result={result} key={result.id} />;
         })}
         <MapView />
       </MapContainer>
