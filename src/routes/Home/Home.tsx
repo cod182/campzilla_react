@@ -1,57 +1,95 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Map, SearchBox, About } from '../../components/index';
-
+import { fetchPosition } from '../../services/hereGeocodeApi';
 import { ChaoticOrbit } from '@uiball/loaders';
+import Results from '../../components/Results/Results';
+import useFetch from 'react-fetch-hook';
+import RadiusBar from '../../components/RadiusBar/RadiusBar';
 
 const Home = () => {
-  const handleSearch = ({
-    state,
-    query,
-  }: {
-    state: boolean;
-    query: string;
-  }) => {
-    setSearchRun(state);
-    if (state) {
-      // Run search look up here
-      console.log(query);
+  const keyword = 'campground';
+  const hereApiKey = process.env.REACT_APP_HERE_API;
+
+  const [searchRunning, setSearchRunning] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [geoLocationObj, setGeoLocationObj] = useState({ lat: 0, lng: 0 });
+  const [error, setError] = useState(false);
+  const [radius, setRadius] = useState(16093);
+  const {
+    data: locationsData,
+    isLoading: loadingLocations,
+    error: locaationsError,
+  } = useFetch<any>(
+    `https://discover.search.hereapi.com/v1/discover?q=${keyword}&in=circle:${geoLocationObj.lat},${geoLocationObj.lng};r=${radius}&limit=100&apiKey=${hereApiKey}`
+  );
+
+  const handleTextSearch = async (query: string) => {
+    setLoading(true);
+    setSearchQuery(query);
+    let positionData = await fetchPosition(query);
+
+    if (positionData.items.length < 1) {
+      setSearchRunning(false);
+      setLoading(false);
+      setSearchQuery('');
+      setError(true);
+    } else {
+      setError(false);
+      setSearchRunning(true);
+      setGeoLocationObj({
+        lat: positionData.items[0].position.lat,
+        lng: positionData.items[0].position.lng,
+      });
+      setLoading(false);
     }
   };
-  const [searchRun, setSearchRun] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [geoLocationObj, setGeoLocationObj] = useState({});
-  const [locationResults, setLocationResults] = useState([
-    { latitude: 52.4929061, longitude: -3.1498262, name: 'location 1' },
-    { latitude: 51.4929061, longitude: -2.149826, name: 'location 2' },
-    { latitude: 54.4934061, longitude: -4.1498262, name: 'location 3' },
-    { latitude: 52.4924831, longitude: -2.1498262, name: 'location 4' },
-  ]);
 
-  const mapRef = useRef();
-
-  useEffect(() => {
-    var element = document.getElementById('map');
-    if (searchRun) {
-      element!.scrollIntoView();
+  const handleGpsSearch = (coordsObj: any) => {
+    setLoading(true);
+    setError(false);
+    setGeoLocationObj(coordsObj);
+    if (geoLocationObj) {
+      setSearchRunning(true);
+      setLoading(false);
     }
-  }, [searchRun]);
+  };
 
   return (
     <>
       <SearchBox
-        searchRun={searchRun}
-        searchStart={handleSearch}
-        setGeoLocationObj={setGeoLocationObj}
+        searchError={error}
+        setSearchRunning={setSearchRunning}
+        searchRunning={searchRunning}
+        handleTextSearch={handleTextSearch}
+        handleGpsSearch={handleGpsSearch}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
-      {searchRun ? (
+
+      {searchRunning ? (
         loading ? (
-          <div className="w-full h-[200px] flex justify-center items-center">
+          <div className="w-full h-[200px] flex flex-col justify-center items-center">
             <ChaoticOrbit size={60} speed={1.5} color="green" />
           </div>
         ) : (
-          <div id="map">
-            <Map coords={geoLocationObj} searchResults={locationResults} />
-          </div>
+          <>
+            <div id="map">
+              <Map coords={geoLocationObj} searchResults={[]} />
+            </div>
+            <RadiusBar
+              locationAmount={locationsData.items.length}
+              radius={radius}
+              setRadius={setRadius}
+            />
+            {loadingLocations ? (
+              <div className="w-full h-[200px] flex justify-center items-center">
+                <ChaoticOrbit size={60} speed={1.5} color="green" />
+              </div>
+            ) : (
+              <Results locations={locationsData} />
+            )}
+          </>
         )
       ) : null}
       <About />
