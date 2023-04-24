@@ -36,10 +36,10 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   }
   return (
     <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto">
-      <div className="h-[70px] my-4 ml-6 flex flex-row justify-center items-center  select-none">
+      <div className="h-auto my-4 flex flex-col md:flex-row justify-center items-center select-none">
         {/* Weather & Temperature */}
         <div
-          className="relative w-auto h-full flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
+          className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold my-2 md:m-none"
           style={{
             backdropFilter: 'blur(1px)',
           }}
@@ -68,34 +68,11 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             </p>
           </div>
         </div>
-        {/* Cloud Cover */}
-        <div
-          className="flex flex-row items-end justify-between text-sm h-full select-none"
-          style={{
-            backdropFilter: 'blur(1px)',
-          }}
-        >
-          <div
-            className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
-            style={{
-              backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
-            }}
-          >
-            <div
-              className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
-              style={{
-                backdropFilter: 'blur(1px)',
-              }}
-            >
-              <p className="z-[2] text-center text-sm">Cloud Cover</p>
-              <p className="capitalize z-[2]">
-                {weatherData?.current?.clouds}%
-              </p>
-            </div>
-          </div>
+        {/* Wind Speed + Direction Container */}
+        <div className="flex flex-row justify-center items-center my-2 md:m-none">
           {/* Wind Speed */}
           <div
-            className={`relative overflow-hidden w-[100px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff0] bg-no-repeat	bg-left-bottom	`}
+            className={`relative overflow-hidden w-[100px] h-[70px] flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff0] bg-no-repeat	bg-left-bottom	`}
             style={{
               backgroundImage: `url(${windAni})`,
 
@@ -127,7 +104,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             </div>
           </div>
           {/* Wind Direction */}
-          <div className="h-full w-[70px] relative bg-[#0e8fff9a] rounded-xl font-semibold">
+          <div className="h-[70px] w-[70px] relative bg-[#0e8fff9a] rounded-xl font-semibold">
             <div className="absolute top-[18px] left-[18px] h-[50%] w-[50%] border border-black rounded-full"></div>
             <p className="absolute top-[0px] left-[30px]">N</p>
             <p className="absolute right-[6px] top-[26px]">E</p>
@@ -140,9 +117,39 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               }}
             />
           </div>
+        </div>
+
+        {/* Cloud + Sun container */}
+        <div className="flex flex-row justify-center items-center my-2 md:m-none">
+          {/* Cloud Cover */}
+          <div
+            className="flex flex-row items-end justify-between text-sm h-[70px] select-none"
+            style={{
+              backdropFilter: 'blur(1px)',
+            }}
+          >
+            <div
+              className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
+              style={{
+                backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
+              }}
+            >
+              <div
+                className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
+                style={{
+                  backdropFilter: 'blur(1px)',
+                }}
+              >
+                <p className="z-[2] text-center text-sm">Cloud Cover</p>
+                <p className="capitalize z-[2]">
+                  {weatherData?.current?.clouds}%
+                </p>
+              </div>
+            </div>
+          </div>
           {/* Sunrise/Sunset */}
           <div
-            className="relative w-auto h-full flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
+            className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
             style={{
               backdropFilter: 'blur(1px)',
             }}

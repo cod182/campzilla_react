@@ -49,6 +49,7 @@ const Home = () => {
       setError(false);
       setSearchRunning(true);
       setMapZoom(10);
+      setRadius(16093);
       setGeoLocationObj({
         lat: positionData.items[0].position.lat,
         lng: positionData.items[0].position.lng,
