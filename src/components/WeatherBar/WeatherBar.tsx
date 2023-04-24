@@ -81,7 +81,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           }}
         >
           <div
-            className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10"
+            className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10 shadow"
             style={{
               backdropFilter: 'blur(1px)',
             }}
