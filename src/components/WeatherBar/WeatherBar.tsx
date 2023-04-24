@@ -4,7 +4,10 @@ import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
 import windAni from '../../assets/images/wind-turbine.gif';
 import { BsFillSunriseFill, BsFillSunsetFill } from 'react-icons/bs';
-import { useConvertUnixTimeToHour } from '../../utils/useConvertUnix';
+import {
+  ConvertUnixTimeToHour,
+  convertUnixTimeToDay,
+} from '../../utils/useConvertUnix';
 
 import { AiOutlineArrowUp } from 'react-icons/ai';
 
@@ -19,8 +22,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   );
 
   const [forcastHourly, setForcastHourly] = useState(true);
-  const sunrise = useConvertUnixTimeToHour(weatherData?.current?.sunrise);
-  const sunset = useConvertUnixTimeToHour(weatherData?.current?.sunset);
+  let hourlyWeatherLimited = weatherData?.hourly?.slice(0, 6);
 
   console.log(weatherData);
 
@@ -36,7 +38,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   }
   return (
     <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto">
-      <div className="h-auto my-4 flex flex-col md:flex-row justify-center items-center select-none">
+      <div className="h-auto my-4 flex flex-row flex-wrap justify-center items-center select-none">
         {/* Weather & Temperature */}
         <div
           className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold my-2 md:m-none"
@@ -68,106 +70,101 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             </p>
           </div>
         </div>
-        {/* Wind Speed + Direction Container */}
-        <div className="flex flex-row justify-center items-center my-2 md:m-none">
-          {/* Wind Speed */}
-          <div
-            className={`relative overflow-hidden w-[100px] h-[70px] flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-[#fff0] bg-no-repeat	bg-left-bottom	`}
-            style={{
-              backgroundImage: `url(${windAni})`,
 
+        {/* Wind Speed */}
+        <div
+          className={`relative overflow-hidden w-[100px] h-[70px] flex flex-col justify-center items-center rounded-xl px-2 m-2 bg-[#fff0] bg-no-repeat bg-left-bottom	`}
+          style={{
+            backgroundImage: `url(${windAni})`,
+            backdropFilter: 'blur(1px)',
+          }}
+        >
+          <div
+            className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10"
+            style={{
               backdropFilter: 'blur(1px)',
             }}
           >
+            <p className="text-sm">Wind Speed</p>
+            <p className="capitalize">
+              {weatherData?.current?.wind_speed.toFixed(0)} mph
+            </p>
+            <p className="text-[5px] absolute bottom-[-17px]">
+              <a
+                target="_blank"
+                href="https://icons8.com/icon/Q83OPXa8MS8N/wind-turbine"
+              >
+                Wind Turbine
+              </a>
+              icon by
+              <a target="_blank" href="https://icons8.com">
+                Icons8
+              </a>
+            </p>
+          </div>
+        </div>
+        {/* Wind Direction */}
+        <div className="h-[70px] w-[70px] relative bg-[#0e8fff9a] rounded-xl font-semibold my-2">
+          <div className="absolute top-[18px] left-[18px] h-[50%] w-[50%] border border-black rounded-full"></div>
+          <p className="absolute top-[0px] left-[30px]">N</p>
+          <p className="absolute right-[6px] top-[26px]">E</p>
+          <p className="absolute bottom-[0px] left-[30px]">S</p>
+          <p className="absolute left-[4px] top-[26px]">W</p>
+          <AiOutlineArrowUp
+            className="text-2xl absolute top-[26px] left-[24px]"
+            style={{
+              transform: `rotate(${weatherData?.current?.wind_deg}deg)`,
+            }}
+          />
+        </div>
+
+        {/* Cloud Cover */}
+        <div
+          className="flex flex-row items-end justify-between text-sm h-[70px] select-none my-2"
+          style={{
+            backdropFilter: 'blur(1px)',
+          }}
+        >
+          <div
+            className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
+            style={{
+              backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
+            }}
+          >
             <div
-              className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10"
+              className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
               style={{
                 backdropFilter: 'blur(1px)',
               }}
             >
-              <p className="text-sm">Wind Speed</p>
-              <p className="capitalize">
-                {weatherData?.current?.wind_speed.toFixed(0)} mph
-              </p>
-              <p className="text-[5px] absolute bottom-[-17px]">
-                <a
-                  target="_blank"
-                  href="https://icons8.com/icon/Q83OPXa8MS8N/wind-turbine"
-                >
-                  Wind Turbine
-                </a>
-                icon by
-                <a target="_blank" href="https://icons8.com">
-                  Icons8
-                </a>
+              <p className="z-[2] text-center text-sm">Cloud Cover</p>
+              <p className="capitalize z-[2]">
+                {weatherData?.current?.clouds}%
               </p>
             </div>
-          </div>
-          {/* Wind Direction */}
-          <div className="h-[70px] w-[70px] relative bg-[#0e8fff9a] rounded-xl font-semibold">
-            <div className="absolute top-[18px] left-[18px] h-[50%] w-[50%] border border-black rounded-full"></div>
-            <p className="absolute top-[0px] left-[30px]">N</p>
-            <p className="absolute right-[6px] top-[26px]">E</p>
-            <p className="absolute bottom-[0px] left-[30px]">S</p>
-            <p className="absolute left-[4px] top-[26px]">W</p>
-            <AiOutlineArrowUp
-              className="text-2xl absolute top-[26px] left-[24px]"
-              style={{
-                transform: `rotate(${weatherData?.current?.wind_deg}deg)`,
-              }}
-            />
           </div>
         </div>
-
-        {/* Cloud + Sun container */}
-        <div className="flex flex-row justify-center items-center my-2 md:m-none">
-          {/* Cloud Cover */}
-          <div
-            className="flex flex-row items-end justify-between text-sm h-[70px] select-none"
-            style={{
-              backdropFilter: 'blur(1px)',
-            }}
-          >
-            <div
-              className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
-              style={{
-                backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
-              }}
-            >
-              <div
-                className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
-                style={{
-                  backdropFilter: 'blur(1px)',
-                }}
-              >
-                <p className="z-[2] text-center text-sm">Cloud Cover</p>
-                <p className="capitalize z-[2]">
-                  {weatherData?.current?.clouds}%
-                </p>
-              </div>
-            </div>
+        {/* Sunrise/Sunset */}
+        <div
+          className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 font-semibold"
+          style={{
+            backdropFilter: 'blur(1px)',
+          }}
+        >
+          <div className="flex flex-col justify-center items-center mx-1">
+            <p>Sunrise</p>
+            <BsFillSunriseFill className="text-2xl" />
+            <p>{ConvertUnixTimeToHour(weatherData?.current?.sunrise)}</p>
           </div>
-          {/* Sunrise/Sunset */}
-          <div
-            className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
-            style={{
-              backdropFilter: 'blur(1px)',
-            }}
-          >
-            <div className="flex flex-col justify-center items-center mx-1">
-              <p>Sunrise</p>
-              <BsFillSunriseFill className="text-2xl" />
-              <p>{sunrise}</p>
-            </div>
-            <div className="flex flex-col justify-center items-center mx-1">
-              <p>Sunset</p>
-              <BsFillSunsetFill className="text-2xl" />
-              <p>{sunset}</p>
-            </div>
+          <div className="flex flex-col justify-center items-center mx-1">
+            <p>Sunset</p>
+            <BsFillSunsetFill className="text-2xl" />
+            <p>{ConvertUnixTimeToHour(weatherData?.current?.sunset)}</p>
           </div>
         </div>
       </div>
-      <div className="ml-6 flex flex-row justify-center items-center select-none">
+      {/* Forcast container */}
+      <div className="flex flex-row flex-wrap justify-center items-center select-none">
         <p className="text-white font-semibold">Forcast: </p>
         <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
           <p
@@ -200,7 +197,53 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             }`}
           ></span>
         </div>
-        {forcastHourly ? <div>Hourly Weather</div> : <div>Weekly Weather</div>}
+
+        {forcastHourly ? (
+          <div
+            className="max-w-[400px] font-normal text-sm mx-auto max-h-[100px] flex justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll"
+            style={{
+              backdropFilter: 'blur(1px)',
+            }}
+          >
+            {hourlyWeatherLimited.map((hourData: any) => {
+              return (
+                <div className="flex flex-wrap flex-col justify-center items-center mx-1 w-auto">
+                  <p className="capitalize">
+                    {hourData.weather[0].description}
+                  </p>
+                  <img
+                    src={`https://openweathermap.org/img/w/${hourData.weather[0].icon}.png`}
+                    alt="weather Icon"
+                  />
+                  <p>{ConvertUnixTimeToHour(hourData.dt)}</p>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div
+            className="max-w-[400px] font-normal text-sm mx-auto max-h-[100px] flex justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll"
+            style={{
+              backdropFilter: 'blur(1px)',
+            }}
+          >
+            {weatherData?.daily.map((dailyData: any) => {
+              console.log(dailyData);
+              return (
+                <div className="flex flex-wrap flex-col justify-center items-center mx-1 w-auto">
+                  <p className="capitalize">
+                    {dailyData.weather[0].description}
+                  </p>
+                  <img
+                    src={`https://openweathermap.org/img/w/${dailyData.weather[0].icon}.png`}
+                    alt="weather Icon"
+                  />
+                  <p>{convertUnixTimeToDay(dailyData.dt)}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
