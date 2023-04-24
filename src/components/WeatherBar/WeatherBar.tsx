@@ -4,6 +4,8 @@ import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
 import windAni from '../../assets/images/wind-turbine.gif';
 import { BsFillSunriseFill, BsFillSunsetFill } from 'react-icons/bs';
+import { ImCross } from 'react-icons/im';
+
 import {
   ConvertUnixTimeToHour,
   convertUnixTimeToDay,
@@ -21,11 +23,11 @@ const WeatherBar = ({ coords }: { coords: any }) => {
     `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lng}&units=metric&appid=${openApiKey}`
   );
 
+  const [weatherOpen, setWeatherOpen] = useState(true);
+
   const [forcastHourly, setForcastHourly] = useState(true);
   let hourlyWeatherLimited = weatherData?.hourly?.slice(0, 6);
   let dailyWeatherLimited = weatherData?.daily?.slice(0, 6);
-
-  console.log(weatherData);
 
   if (weatherLoading) {
     return (
@@ -38,8 +40,10 @@ const WeatherBar = ({ coords }: { coords: any }) => {
     return null;
   }
   return (
-    <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto">
-      <div className="h-auto my-4 flex flex-row flex-wrap justify-center items-center select-none">
+    <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto relative">
+      <div
+        className={`h-auto my-4 flex flex-row flex-wrap justify-center items-center select-none`}
+      >
         {/* Weather & Temperature */}
         <div
           className="relative w-auto h-[70px] flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold my-2 md:m-none"
@@ -81,7 +85,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           }}
         >
           <div
-            className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10"
+            className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10 shadow"
             style={{
               backdropFilter: 'blur(1px)',
             }}
@@ -164,9 +168,25 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           </div>
         </div>
       </div>
-      {/* Forcast container */}
-      <div className="flex flex-row flex-wrap justify-center items-center select-none">
-        <p className="text-white font-semibold">Forcast: </p>
+      <div className="w-[56rem] h-auto">
+        <button
+          className="w-full h-[20px] bg-blue-500 hover:bg-blue-400 flex justify-center items-center rounded-full shadow-lg transition-all duration-500 ease-in-out"
+          onClick={() => {
+            setWeatherOpen((prev) => {
+              return prev ? false : true;
+            });
+          }}
+        >
+          {weatherOpen ? 'Hide Full Forecast' : 'Show Full Forecast'}
+        </button>
+      </div>
+      {/* Forecast container */}
+      <div
+        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#d7d7d7a1] px-6 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
+          weatherOpen === true ? 'max-h-[500px]' : 'max-h-[0px]'
+        }`}
+      >
+        <p className="text-white font-semibold">Forecast: </p>
         <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
           <p
             onClick={() => {
@@ -201,7 +221,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
         {forcastHourly ? (
           <div
-            className="max-w-[335px] sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+            className=" sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
@@ -210,7 +230,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               return (
                 <div
                   key={hourData.dt}
-                  className="flex flex-wrap flex-col justify-center items-center mx-1"
+                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
                 >
                   <p className="capitalize text-center h-[40px]">
                     {hourData.weather[0].description}
@@ -229,7 +249,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           </div>
         ) : (
           <div
-            className="max-w-[335px] sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+            className="sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
@@ -238,7 +258,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               return (
                 <div
                   key={dailyData.dt}
-                  className="flex flex-wrap flex-col justify-between items-center w-auto mx-1"
+                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
                 >
                   <p className="capitalize text-center h-[40px]">
                     {dailyData.weather[0].description}
