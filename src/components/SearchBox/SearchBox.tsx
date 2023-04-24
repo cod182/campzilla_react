@@ -92,7 +92,7 @@ const SearchBox = ({
 
   return (
     <div
-      className={`w-screen bg-white flex flex-row items-center justify-center ${
+      className={`w-screen flex flex-row items-center justify-center ${
         searchRunning ? 'h-[200px]' : 'h-[400px]'
       }`}
     >

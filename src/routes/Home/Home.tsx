@@ -10,7 +10,7 @@ import {
 import { fetchPosition } from '../../services/hereGeocodeApi';
 import { ChaoticOrbit } from '@uiball/loaders';
 import useFetch from 'react-fetch-hook';
-
+import backgroundImg from '../../assets/images/background.jpeg';
 const Home = () => {
   const keyword = 'campground';
   const hereApiKey = process.env.REACT_APP_HERE_API;
@@ -49,6 +49,7 @@ const Home = () => {
       setError(false);
       setSearchRunning(true);
       setMapZoom(10);
+      setRadius(16093);
       setGeoLocationObj({
         lat: positionData.items[0].position.lat,
         lng: positionData.items[0].position.lng,
