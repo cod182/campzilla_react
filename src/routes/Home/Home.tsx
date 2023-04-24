@@ -93,7 +93,7 @@ const Home = () => {
           </div>
         ) : (
           <>
-            <div id="map">
+            <div id="map" className="z-[2]">
               <Map
                 coords={geoLocationObj}
                 mapFocus={mapFocusCoords}

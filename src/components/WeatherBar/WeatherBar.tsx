@@ -182,103 +182,110 @@ const WeatherBar = ({ coords }: { coords: any }) => {
       </div>
       {/* Forecast container */}
       <div
-        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#a1a1a1a1] px-6 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#a1a1a1a1] px-6 py-2 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
           weatherOpen === true ? 'max-h-[500px]' : 'max-h-[0px]'
         }`}
         style={{
           backdropFilter: 'blur(1px)',
+          boxShadow: 'inset gray 0px 9px 12px',
         }}
       >
-        <p className="text-white font-semibold">Forecast: </p>
-        <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
-          <p
-            onClick={() => {
-              setForcastHourly((prev) => {
-                return prev ? false : true;
-              });
-            }}
-            className={`mx-2 z-[1] text-center w-[75px] ease-in-out transition-all duration-200 ${
-              forcastHourly ? 'text-white font-semibold' : 'text-black'
-            }`}
-          >
-            Hourly
-          </p>
-          <p
-            onClick={() => {
-              setForcastHourly((prev) => {
-                return prev ? false : true;
-              });
-            }}
-            className={`mx-2 z-[1] text-center w-[75px] ease-in-out transition-all duration-200 ${
-              forcastHourly ? 'text-black' : 'text-white font-semibold'
-            }`}
-          >
-            Daily
-          </p>
-          <span
-            className={`absolute cursor-pointer ease-in-out transition-all duration-200 bg-[#00ccffcf] w-[60px] h-[30px] opacity-[0.6] rounded-xl borer-black z-[0] ${
-              forcastHourly ? 'left-[9px]' : 'left-[80px]'
-            }`}
-          ></span>
-        </div>
+        <div
+          className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none transition-all duration-1000 ease-in-out ${
+            weatherOpen === true ? 'opacity-1' : 'opacity-0'
+          }`}
+        >
+          <p className="text-white font-semibold">Forecast: </p>
+          <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
+            <p
+              onClick={() => {
+                setForcastHourly((prev) => {
+                  return prev ? false : true;
+                });
+              }}
+              className={`mx-2 z-[1] text-center w-[75px] ease-in-out transition-all duration-200 ${
+                forcastHourly ? 'text-white font-semibold' : 'text-black'
+              }`}
+            >
+              Hourly
+            </p>
+            <p
+              onClick={() => {
+                setForcastHourly((prev) => {
+                  return prev ? false : true;
+                });
+              }}
+              className={`mx-2 z-[1] text-center w-[75px] ease-in-out transition-all duration-200 ${
+                forcastHourly ? 'text-black' : 'text-white font-semibold'
+              }`}
+            >
+              Daily
+            </p>
+            <span
+              className={`absolute cursor-pointer ease-in-out transition-all duration-200 bg-[#00ccffcf] w-[60px] h-[30px] opacity-[0.6] rounded-xl borer-black z-[0] ${
+                forcastHourly ? 'left-[9px]' : 'left-[80px]'
+              }`}
+            ></span>
+          </div>
 
-        {forcastHourly ? (
-          <div
-            className=" sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
-            style={{
-              backdropFilter: 'blur(1px)',
-            }}
-          >
-            {hourlyWeatherLimited.map((hourData: any) => {
-              return (
-                <div
-                  key={hourData.dt}
-                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
-                >
-                  <p className="capitalize text-center h-[40px]">
-                    {hourData.weather[0].description}
-                  </p>
-                  <img
-                    className="w-[40px] h-[40px]"
-                    src={`https://openweathermap.org/img/w/${hourData.weather[0].icon}.png`}
-                    alt="weather Icon"
-                  />
-                  <p className="h-[20px]">
-                    {ConvertUnixTimeToHour(hourData.dt)}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div
-            className="sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
-            style={{
-              backdropFilter: 'blur(1px)',
-            }}
-          >
-            {dailyWeatherLimited.map((dailyData: any) => {
-              return (
-                <div
-                  key={dailyData.dt}
-                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
-                >
-                  <p className="capitalize text-center h-[40px]">
-                    {dailyData.weather[0].description}
-                  </p>
-                  <img
-                    className="h-[40px] w-[40px]"
-                    src={`https://openweathermap.org/img/w/${dailyData.weather[0].icon}.png`}
-                    alt="weather Icon"
-                  />
-                  <p className="h-[20px]">
-                    {convertUnixTimeToDay(dailyData.dt)}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        )}
+          {forcastHourly ? (
+            <div
+              className=" sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+              style={{
+                backdropFilter: 'blur(1px)',
+              }}
+            >
+              {hourlyWeatherLimited.map((hourData: any) => {
+                return (
+                  <div
+                    key={hourData.dt}
+                    className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
+                  >
+                    <p className="capitalize text-center h-[40px]">
+                      {hourData.weather[0].description}
+                    </p>
+                    <img
+                      className="w-[40px] h-[40px]"
+                      src={`https://openweathermap.org/img/w/${hourData.weather[0].icon}.png`}
+                      alt="weather Icon"
+                    />
+                    <p className="h-[20px]">
+                      {ConvertUnixTimeToHour(hourData.dt)}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div
+              className="sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+              style={{
+                backdropFilter: 'blur(1px)',
+              }}
+            >
+              {dailyWeatherLimited.map((dailyData: any) => {
+                return (
+                  <div
+                    key={dailyData.dt}
+                    className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
+                  >
+                    <p className="capitalize text-center h-[40px]">
+                      {dailyData.weather[0].description}
+                    </p>
+                    <img
+                      className="h-[40px] w-[40px]"
+                      src={`https://openweathermap.org/img/w/${dailyData.weather[0].icon}.png`}
+                      alt="weather Icon"
+                    />
+                    <p className="h-[20px]">
+                      {convertUnixTimeToDay(dailyData.dt)}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
