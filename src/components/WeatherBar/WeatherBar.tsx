@@ -23,6 +23,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
   const [forcastHourly, setForcastHourly] = useState(true);
   let hourlyWeatherLimited = weatherData?.hourly?.slice(0, 6);
+  let dailyWeatherLimited = weatherData?.daily?.slice(0, 6);
 
   console.log(weatherData);
 
@@ -200,45 +201,56 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
         {forcastHourly ? (
           <div
-            className="max-w-[400px] font-normal text-sm mx-auto max-h-[100px] flex justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll"
+            className="max-w-[335px] sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
           >
             {hourlyWeatherLimited.map((hourData: any) => {
               return (
-                <div className="flex flex-wrap flex-col justify-center items-center mx-1 w-auto">
-                  <p className="capitalize">
+                <div
+                  key={hourData.dt}
+                  className="flex flex-wrap flex-col justify-center items-center mx-1"
+                >
+                  <p className="capitalize text-center h-[40px]">
                     {hourData.weather[0].description}
                   </p>
                   <img
+                    className="w-[40px] h-[40px]"
                     src={`https://openweathermap.org/img/w/${hourData.weather[0].icon}.png`}
                     alt="weather Icon"
                   />
-                  <p>{ConvertUnixTimeToHour(hourData.dt)}</p>
+                  <p className="h-[20px]">
+                    {ConvertUnixTimeToHour(hourData.dt)}
+                  </p>
                 </div>
               );
             })}
           </div>
         ) : (
           <div
-            className="max-w-[400px] font-normal text-sm mx-auto max-h-[100px] flex justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll"
+            className="max-w-[335px] sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
           >
-            {weatherData?.daily.map((dailyData: any) => {
-              console.log(dailyData);
+            {dailyWeatherLimited.map((dailyData: any) => {
               return (
-                <div className="flex flex-wrap flex-col justify-center items-center mx-1 w-auto">
-                  <p className="capitalize">
+                <div
+                  key={dailyData.dt}
+                  className="flex flex-wrap flex-col justify-between items-center w-auto mx-1"
+                >
+                  <p className="capitalize text-center h-[40px]">
                     {dailyData.weather[0].description}
                   </p>
                   <img
+                    className="h-[40px] w-[40px]"
                     src={`https://openweathermap.org/img/w/${dailyData.weather[0].icon}.png`}
                     alt="weather Icon"
                   />
-                  <p>{convertUnixTimeToDay(dailyData.dt)}</p>
+                  <p className="h-[20px]">
+                    {convertUnixTimeToDay(dailyData.dt)}
+                  </p>
                 </div>
               );
             })}

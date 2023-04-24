@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <body className="bg-bg-main bg-cover bg-fixed bg-no-repeat">
+    <div className="bg-bg-main bg-cover bg-fixed bg-no-repeat">
       {mobile && (
         <SideNavBar handleSideBar={handleSideBar} mobileMenu={mobileMenu} />
       )}
@@ -35,7 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-    </body>
+    </div>
   );
 }
 
