@@ -28,7 +28,12 @@ const Results = ({
   }
   return (
     <div className="max-w-5xl h-auto min-h-[300px] pb-10 mx-auto mt-6 flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold py-4 rounded-tl-xl rounded-tr-xl text-center bg-[#a1a1a1a1] w-[90%] ">
+      <h1
+        className="text-2xl font-bold py-4 rounded-tl-xl rounded-tr-xl text-center bg-[#a1a1a1a1] w-[90%]"
+        style={{
+          backdropFilter: 'blur(1px)',
+        }}
+      >
         Results
       </h1>
       <hr className="border-y-[2px] border-gray-500  my-4 shadow-lg w-[95%] mt-0" />
