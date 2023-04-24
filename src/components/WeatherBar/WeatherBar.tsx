@@ -3,6 +3,8 @@ import { DotPulse } from '@uiball/loaders';
 import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
 import windAni from '../../assets/images/wind-turbine.gif';
+import { BsFillSunriseFill, BsFillSunsetFill } from 'react-icons/bs';
+import { useConvertUnixTimeToHour } from '../../utils/useConvertUnix';
 
 import { AiOutlineArrowUp } from 'react-icons/ai';
 
@@ -17,6 +19,8 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   );
 
   const [forcastHourly, setForcastHourly] = useState(true);
+  const sunrise = useConvertUnixTimeToHour(weatherData?.current?.sunrise);
+  const sunset = useConvertUnixTimeToHour(weatherData?.current?.sunset);
 
   console.log(weatherData);
 
@@ -33,7 +37,6 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   return (
     <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1 max-w-5xl mx-auto">
       <div className="h-[70px] my-4 ml-6 flex flex-row justify-center items-center  select-none">
-        <p className="text-white font-semibold">Current Weather:&nbsp;</p>
         {/* Weather & Temperature */}
         <div
           className="relative w-auto h-full flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
@@ -136,6 +139,24 @@ const WeatherBar = ({ coords }: { coords: any }) => {
                 transform: `rotate(${weatherData?.current?.wind_deg}deg)`,
               }}
             />
+          </div>
+          {/* Sunrise/Sunset */}
+          <div
+            className="relative w-auto h-full flex justify-center items-center bg-[#0e8fff9a] shadow rounded-xl px-2 mx-2 font-semibold"
+            style={{
+              backdropFilter: 'blur(1px)',
+            }}
+          >
+            <div className="flex flex-col justify-center items-center mx-1">
+              <p>Sunrise</p>
+              <BsFillSunriseFill className="text-2xl" />
+              <p>{sunrise}</p>
+            </div>
+            <div className="flex flex-col justify-center items-center mx-1">
+              <p>Sunset</p>
+              <BsFillSunsetFill className="text-2xl" />
+              <p>{sunset}</p>
+            </div>
           </div>
         </div>
       </div>
