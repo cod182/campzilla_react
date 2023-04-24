@@ -34,7 +34,7 @@ const Map = ({
   }
 
   return (
-    <div className="mx-auto max-w-5xl h-[500px] mb-10 rounded-xl overflow-hidden">
+    <div className="mx-auto max-w-5xl h-[500px] rounded-xl overflow-hidden">
       <MapContainer
         className="w-full h-full"
         center={[lat, lng]}

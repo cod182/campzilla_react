@@ -182,9 +182,12 @@ const WeatherBar = ({ coords }: { coords: any }) => {
       </div>
       {/* Forecast container */}
       <div
-        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#d7d7d7a1] px-6 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#a1a1a1a1] px-6 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
           weatherOpen === true ? 'max-h-[500px]' : 'max-h-[0px]'
         }`}
+        style={{
+          backdropFilter: 'blur(1px)',
+        }}
       >
         <p className="text-white font-semibold">Forecast: </p>
         <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
