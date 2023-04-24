@@ -16,7 +16,7 @@ const Result = ({
   setMapZoom: any;
 }) => {
   const [viewMore, setViewMore] = useState(false);
-
+  console.log(resultData?.contacts?.[0]);
   return (
     <section
       className={`group overflow-hidden w-full flex flex-col justify-start rounded-lg bg-[#cfcfcfcc] p-5 shadow-lg relative ease-in-out transition-all duration-300 ${
@@ -36,11 +36,10 @@ const Result = ({
             setMapZoom(17);
           }}
           href="#"
-          className="w-full text-[#23abff] group-hover:text-[#4ab836] sm:text-[30px] md:text-[40px] lg:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
+          className="w-full text-[#23abff] group-hover:text-[#4ab836] text-[25px] sm:text-[28px] md:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
         >
-          {resultData.title.slice(0, 34)}
-          {resultData.title.length > 34 ? '...' : null}
-          {console.log(resultData.title.length)}
+          {resultData.title.slice(0, 28)}
+          {resultData.title.length > 28 ? '...' : null}
         </a>
 
         <div className="border-b-4 border-[#23abff] group-hover:border-[#4ab836] w-[40px] group-hover:w-full transition-all ease-ine-out duration-1000"></div>
@@ -106,14 +105,15 @@ const Result = ({
               {resultData?.contacts?.[0]?.www ? (
                 <p className="my-1 flex items-center">
                   <CgWebsite />
-                  &nbsp;Website &nbsp;
+                  &nbsp;Website: &nbsp;
                   <a
                     className="hover:text-[#4ab836] ase-in-out transition-all duration-300"
                     href={resultData?.contacts?.[0]?.www?.[0]?.value}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {resultData?.contacts?.[0]?.www?.[0]?.value}
+                    {resultData?.contacts?.[0]?.www?.[0]?.value.slice(0, 40)}
+                    {resultData?.contacts?.[0]?.www?.[0]?.value <= 40 && '...'}
                   </a>
                 </p>
               ) : null}

@@ -28,9 +28,11 @@ const Results = ({
   }
   return (
     <div className="max-w-5xl h-auto min-h-[300px] pb-10 mx-auto mt-6 flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold">Results</h1>
-      <hr className="border-b border-[1px] border-gray-400 w-full my-4" />
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 grid-flow-rows gap-4 mb-6">
+      <h1 className="text-2xl font-bold py-4 rounded-tl-xl rounded-tr-xl text-center bg-[#a1a1a1a1] w-[90%] ">
+        Results
+      </h1>
+      <hr className="border-y-[2px] border-gray-500  my-4 shadow-lg w-[95%] mt-0" />
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-flow-rows gap-4 mb-6">
         {locationsLimited.map((location: any) => {
           return (
             <div

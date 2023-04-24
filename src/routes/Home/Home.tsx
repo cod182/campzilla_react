@@ -68,7 +68,7 @@ const Home = () => {
     setGeoLocationObj(coordsObj);
     if (geoLocationObj) {
       setMapZoom(10);
-      setMapFocusCoords(geoLocationObj);
+      setMapFocusCoords(coordsObj);
       setSearchRunning(true);
       setLoading(false);
     }

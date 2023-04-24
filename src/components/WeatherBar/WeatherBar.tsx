@@ -25,8 +25,6 @@ const WeatherBar = ({ coords }: { coords: any }) => {
   let hourlyWeatherLimited = weatherData?.hourly?.slice(0, 6);
   let dailyWeatherLimited = weatherData?.daily?.slice(0, 6);
 
-  console.log(weatherData);
-
   if (weatherLoading) {
     return (
       <div className="w-full flex flex-row justify-center items-center">
@@ -165,7 +163,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
         </div>
       </div>
       {/* Forcast container */}
-      <div className="flex flex-row flex-wrap justify-center items-center select-none">
+      <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center select-none">
         <p className="text-white font-semibold">Forcast: </p>
         <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
           <p
@@ -201,7 +199,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
         {forcastHourly ? (
           <div
-            className="max-w-[335px] sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+            className=" sm:max-w-2xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
@@ -210,7 +208,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               return (
                 <div
                   key={hourData.dt}
-                  className="flex flex-wrap flex-col justify-center items-center mx-1"
+                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
                 >
                   <p className="capitalize text-center h-[40px]">
                     {hourData.weather[0].description}
@@ -229,7 +227,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           </div>
         ) : (
           <div
-            className="max-w-[335px] sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
+            className="sm:max-w-xl font-normal text-sm mx-auto h-auto flex flex-row flex-wrap justify-between items-center bg-[#0e8fff9a] shadow rounded-xl px-2 m-2 overflow-x-scroll p-2"
             style={{
               backdropFilter: 'blur(1px)',
             }}
@@ -238,7 +236,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               return (
                 <div
                   key={dailyData.dt}
-                  className="flex flex-wrap flex-col justify-between items-center w-auto mx-1"
+                  className="flex flex-wrap flex-col justify-between items-center w-[70px] mx-1"
                 >
                   <p className="capitalize text-center h-[40px]">
                     {dailyData.weather[0].description}
