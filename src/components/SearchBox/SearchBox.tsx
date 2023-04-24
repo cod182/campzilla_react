@@ -37,7 +37,10 @@ const SearchBox = ({
   const handleGeoLocateSearch = () => {
     if (coords) {
       searchStart({ state: true });
-      setGeoLocationObj(coords);
+      setGeoLocationObj({
+        longitude: coords.longitude,
+        latitude: coords.latitude,
+      });
     }
   };
 

@@ -1,7 +1,62 @@
-import React from 'react';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-const Map = () => {
-  return <div className="max-w-7xl bg-slate-600 rounded h-[200px]">Map</div>;
+const Map = ({
+  coords,
+  searchResults,
+}: {
+  coords: any;
+  searchResults: any;
+}) => {
+  const { latitude, longitude } = coords;
+
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 35],
+    iconAnchor: [5, 30],
+  });
+
+  function MapView() {
+    let map = useMap();
+    map.setView([latitude, longitude], map.getZoom());
+    //Sets geographical center and zoom for the view of the map
+    return null;
+  }
+
+  return (
+    <div className="mx-auto max-w-5xl h-[500px] mb-10">
+      <MapContainer
+        className="w-full h-full"
+        center={[latitude, latitude]}
+        zoom={5}
+        scrollWheelZoom={true}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker icon={DefaultIcon} position={[latitude, longitude]}>
+          <Popup>You are here!</Popup>
+        </Marker>
+        {searchResults.map((result: any) => {
+          return (
+            <Marker
+              key={result.name}
+              icon={DefaultIcon}
+              position={[result.latitude, result.longitude]}
+            >
+              <Popup>{result.name}</Popup>
+            </Marker>
+          );
+        })}
+        <MapView />
+      </MapContainer>
+    </div>
+  );
 };
 
 export default Map;
