@@ -4,6 +4,8 @@ import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
 import windAni from '../../assets/images/wind-turbine.gif';
 
+import { AiOutlineArrowUp } from 'react-icons/ai';
+
 const WeatherBar = ({ coords }: { coords: any }) => {
   const openApiKey = process.env.REACT_APP_OPEN_WEATHER_API;
   const {
@@ -16,7 +18,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
 
   const [forcastHourly, setForcastHourly] = useState(true);
 
-  console.log(weatherData?.current?.clouds / 100);
+  console.log(weatherData);
 
   if (weatherLoading) {
     return (
@@ -29,7 +31,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
     return null;
   }
   return (
-    <div className="w-full h-autoflex flex-col justify-center items-center mt-4 sm:mt-1">
+    <div className="w-full h-auto flex flex-col justify-center items-center mt-4 sm:mt-1">
       <div className="h-[70px] my-4 ml-6 flex flex-row justify-center items-center  select-none">
         <p>Current Weather:&nbsp;</p>
         <div className="w-auto h-full flex justify-center items-center bg-[#00caffa1] rounded-xl px-2 mx-2 font-semibold">
@@ -62,7 +64,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           <div
             className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
             style={{
-              backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(135 230 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
+              backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
             }}
           >
             <div className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold">
@@ -78,12 +80,12 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               backgroundImage: `url(${windAni})`,
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2">
+            <div className="absolute top-0 left-0 w-full h-full bg-[#0e8fff9a] text-black text-semibold flex flex-col justify-center items-end font-semibold px-2 leading-10	">
               <p className="text-sm">Wind Speed</p>
               <p className="capitalize">
                 {weatherData?.current?.wind_speed.toFixed(0)} mph
               </p>
-              <p className="text-[5px] absolute bottom-[-6px]">
+              <p className="text-[5px] absolute bottom-[-17px]">
                 <a
                   target="_blank"
                   href="https://icons8.com/icon/Q83OPXa8MS8N/wind-turbine"
@@ -96,6 +98,20 @@ const WeatherBar = ({ coords }: { coords: any }) => {
                 </a>
               </p>
             </div>
+          </div>
+          {/* Wind Direction */}
+          <div className="h-full w-[70px] relative bg-[#0e8fff9a] rounded-xl font-semibold">
+            <div className="absolute top-[18px] left-[18px] h-[50%] w-[50%] border border-black rounded-full"></div>
+            <p className="absolute top-[0px] left-[30px]">N</p>
+            <p className="absolute right-[6px] top-[26px]">E</p>
+            <p className="absolute bottom-[0px] left-[30px]">S</p>
+            <p className="absolute left-[4px] top-[26px]">W</p>
+            <AiOutlineArrowUp
+              className="text-2xl absolute top-[26px] left-[24px]"
+              style={{
+                transform: `rotate(${weatherData?.current?.wind_deg}deg)`,
+              }}
+            />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ import {
 import { fetchPosition } from '../../services/hereGeocodeApi';
 import { ChaoticOrbit } from '@uiball/loaders';
 import useFetch from 'react-fetch-hook';
-
+import backgroundImg from '../../assets/images/background.jpeg';
 const Home = () => {
   const keyword = 'campground';
   const hereApiKey = process.env.REACT_APP_HERE_API;
