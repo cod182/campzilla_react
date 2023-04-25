@@ -23,18 +23,21 @@ const Header = ({
       >
         {!mobile && (
           <div className="flex flex-col justify-center items-center mr-8">
-            <a
-              href="#"
+            <button
+              onClick={() => {
+                document!
+                  .getElementById('about')!
+                  .scrollIntoView({ behavior: 'smooth' });
+              }}
               className="text-xl p-2 bg-white rounded-full min-w-[100px] text-center hover:bg-[#63e31e] transition-all ease-in-out duration-300"
             >
               About
-            </a>
+            </button>
           </div>
         )}
         {mobile && (
           <div>
-            <a
-              href="menu"
+            <button
               onClick={(e) => {
                 e.preventDefault();
                 handleSideBar();
@@ -42,7 +45,7 @@ const Header = ({
               className="text-[50px] hover:text-[#49e940] transition-all ease-in-out duration-300"
             >
               <GiHamburgerMenu />
-            </a>
+            </button>
           </div>
         )}
         <div>

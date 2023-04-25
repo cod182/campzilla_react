@@ -16,7 +16,7 @@ const Result = ({
   setMapZoom: any;
 }) => {
   const [viewMore, setViewMore] = useState(false);
-  console.log(resultData?.contacts?.[0]);
+
   return (
     <section
       className={`group overflow-hidden w-full flex flex-col justify-start rounded-lg bg-[#cfcfcfcc] p-5 shadow-lg relative ease-in-out transition-all duration-300 ${
@@ -116,7 +116,7 @@ const Result = ({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {resultData?.contacts?.[0]?.www?.[0]?.value.slice(0, 40)}
+                    {resultData?.contacts?.[0]?.www?.[0]?.value.slice(11, 40)}
                     {resultData?.contacts?.[0]?.www?.[0]?.value <= 40 && '...'}
                   </a>
                 </p>
