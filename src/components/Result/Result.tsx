@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { getMilesFromMeters } from '../../utils/useGetMiles';
 import { FcGoogle } from 'react-icons/fc';
-import { BsApple, BsFillTelephoneFill, BsTelephoneXFill } from 'react-icons/bs';
+import { BsApple, BsFillTelephoneFill } from 'react-icons/bs';
 import { CgWebsite } from 'react-icons/cg';
-import { MdWebAssetOff, MdEmail, MdSmsFailed } from 'react-icons/md';
+import { MdEmail } from 'react-icons/md';
 import { AiFillCaretDown } from 'react-icons/ai';
 
 const Result = ({
@@ -58,7 +58,7 @@ const Result = ({
               <a
                 href={`https://maps.google.com/?q=${resultData?.position?.lat},%20${resultData?.position?.lng}`}
                 target="_blank"
-                rel="noreffer"
+                rel="noreferrer"
                 className="w-[25px] h-[25px] flex justify-center items-center mx-2"
               >
                 <FcGoogle className="w-full h-full" />
@@ -66,7 +66,7 @@ const Result = ({
               <a
                 href={`http://maps.apple.com/?q=${resultData?.title},%20${resultData?.address?.city},%20${resultData?.address?.postalCode}`}
                 target="_blank"
-                rel="noreffer"
+                rel="noreferrer"
                 className="w-[25px] h-[25px] flex justify-center items-center mx-2"
               >
                 <BsApple className="w-[90%] h-[90%]" />

@@ -12,10 +12,10 @@ const Contact = ({ handleContact }: { handleContact: any }) => {
 
     emailjs
       .sendForm(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        'service_1ndo4oh',
+        'template_1kf2ka5',
         form.current,
-        'YOUR_PUBLIC_KEY'
+        'user_nkuxTGXoXxf23yPeCJXpo'
       )
       .then(
         (result: any) => {
