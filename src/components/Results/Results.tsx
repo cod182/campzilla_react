@@ -38,7 +38,7 @@ const Results = ({
         Results
       </h1>
       <hr className="border-y-[2px] border-gray-500  my-4 shadow-lg w-[95%] mt-0" />
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 grid-flow-rows gap-4 mb-6">
+      <div className="flex flex-col justify-center items-center sm:grid sm:grid-cols-1 md:grid-cols-2 grid-flow-rows gap-4 mb-6 w-full">
         {locationsLimited.map((location: any) => {
           return (
             <div
