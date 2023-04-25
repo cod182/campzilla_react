@@ -170,7 +170,10 @@ const WeatherBar = ({ coords }: { coords: any }) => {
       </div>
       <div className="w-[56rem] h-auto">
         <button
-          className="w-full h-[20px] bg-blue-500 hover:bg-blue-400 flex justify-center items-center rounded-full shadow-lg transition-all duration-500 ease-in-out"
+          className="w-full h-[20px] bg-[#3c83f6d6] hover:bg-[#60a5fad6] flex justify-center items-center rounded-full shadow-lg transition-all duration-500 ease-in-out"
+          style={{
+            backdropFilter: 'blur(1px)',
+          }}
           onClick={() => {
             setWeatherOpen((prev) => {
               return prev ? false : true;

@@ -32,6 +32,7 @@ const Results = ({
         className="text-2xl font-bold py-4 rounded-tl-xl rounded-tr-xl text-center bg-[#a1a1a1a1] w-[90%]"
         style={{
           backdropFilter: 'blur(1px)',
+          boxShadow: 'inset gray 0px -7px 12px',
         }}
       >
         Results
