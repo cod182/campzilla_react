@@ -4,9 +4,11 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 const Header = ({
   mobile,
   handleSideBar,
+  handleContact,
 }: {
   mobile: boolean;
   handleSideBar: any;
+  handleContact: any;
 }) => {
   return (
     <header
@@ -60,12 +62,12 @@ const Header = ({
 
         {!mobile && (
           <div className="flex flex-col justify-center items-center ml-8">
-            <a
-              href="#"
+            <button
+              onClick={() => handleContact()}
               className="text-xl p-2 bg-white rounded-full min-w-[100px] text-center hover:bg-[#63e31e] transition-all ease-in-out duration-300"
             >
               Contact
-            </a>
+            </button>
           </div>
         )}
       </div>
