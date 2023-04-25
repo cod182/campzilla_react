@@ -1,7 +1,6 @@
 import useFetch from 'react-fetch-hook';
 import { DotPulse } from '@uiball/loaders';
 import { useState } from 'react';
-import cloudImg from '../../assets/images/clouds.png';
 import clearSky from '../../assets/images/clear.png';
 import cloudySky from '../../assets/images/cloudy.png';
 import windAni from '../../assets/images/wind-turbine.gif';
@@ -143,14 +142,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
               }}
             />
 
-            <div
-              className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
-              style={
-                {
-                  // backdropFilter: 'blur(1px)',
-                }
-              }
-            >
+            <div className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-white text-semibold flex flex-col justify-center items-center font-semibold">
               <p className="z-[2] text-center text-sm">Cloud Cover</p>
               <p className="capitalize z-[2]">
                 {weatherData?.current?.clouds}%
