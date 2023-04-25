@@ -14,5 +14,5 @@ export const convertUnixTimeToDay = (unixTime: number) => {
   const milliseconds = unixTime * 1000;
   const dateObject = new Date(milliseconds);
 
-  return dateObject.toLocaleString('en-gb', { weekday: 'long' });
+  return dateObject.toLocaleString('en-gb', { weekday: 'short' });
 };

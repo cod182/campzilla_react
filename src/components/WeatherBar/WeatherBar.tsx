@@ -199,7 +199,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           }`}
         >
           <p className="text-white font-semibold">Forecast: </p>
-          <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#d7d7d7a1] rounded-xl py-2 px-1 mx-2 relative ">
+          <div className="w-[150px] h-auto flex justify-between items-center cursor-pointer bg-[#b7b7b7a1] rounded-xl py-2 px-1 mx-2 relative ">
             <p
               onClick={() => {
                 setForcastHourly((prev) => {
@@ -252,8 +252,8 @@ const WeatherBar = ({ coords }: { coords: any }) => {
                       src={`https://openweathermap.org/img/w/${hourData.weather[0].icon}.png`}
                       alt="weather Icon"
                     />
-                    <p className="h-[20px]">
-                      {ConvertUnixTimeToHour(hourData.dt)}
+                    <p className="h-[20px] font-semibold">
+                      {ConvertUnixTimeToHour(hourData.dt).slice(0, 2)}
                     </p>
                   </div>
                 );
@@ -280,7 +280,7 @@ const WeatherBar = ({ coords }: { coords: any }) => {
                       src={`https://openweathermap.org/img/w/${dailyData.weather[0].icon}.png`}
                       alt="weather Icon"
                     />
-                    <p className="h-[20px]">
+                    <p className="h-[20px] font-semibold">
                       {convertUnixTimeToDay(dailyData.dt)}
                     </p>
                   </div>
