@@ -11,7 +11,13 @@ const RadiusBar = ({
   setRadius: any;
 }) => {
   return (
-    <div className="w-full h-[50px] flex flex-col sm:flex-row justify-center items-center">
+    <div
+      className="mx-auto max-w-4xl w-full md:w-[80%] min-h-[40px] h-auto flex flex-row flex-wrap justify-center items-center bg-[#a1a1a1a1] rounded-bl-lg rounded-br-lg shadow-inner"
+      style={{
+        backdropFilter: 'blur(1px)',
+        boxShadow: 'inset gray 0px 9px 12px',
+      }}
+    >
       <p className="mr-2">Radius:</p>
       <form className="flex justify-center items-center">
         <input

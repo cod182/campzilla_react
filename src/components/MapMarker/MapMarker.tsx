@@ -50,7 +50,7 @@ const MapMarker = ({ result }: any) => {
           <div className="flex flex-row jusitfy-space items-center mt-2">
             <h5>Navigate:</h5>
             <a
-              href={`https://maps.google.com/?q=${result?.title}?.address?.city},${result?.address?.county},${result?.address?.postalCode}`}
+              href={`https://maps.google.com/?q=${result?.position?.lat},%20${result?.position?.lng}`}
               target="_blank"
               rel="noreffer"
               className="w-[20px] h-[20px] flex justify-center items-center mx-2"
@@ -58,7 +58,7 @@ const MapMarker = ({ result }: any) => {
               <FcGoogle className="w-full h-full" />
             </a>
             <a
-              href={`http://maps.apple.com/?q=${result?.title},${result?.address?.city},${result?.address?.county},${result?.address?.postalCode}`}
+              href={`http://maps.apple.com/?q=${result?.title},%20${result?.address?.city},%20${result?.address?.county},%20${result?.address?.postalCode}`}
               target="_blank"
               rel="noreffer"
               className="w-[20px] h-[20px] flex justify-center items-center mx-2"

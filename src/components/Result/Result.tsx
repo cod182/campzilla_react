@@ -52,7 +52,7 @@ const Result = ({
             <div className="flex flex-row jusitfy-space items-center">
               <h5>Navigate:</h5>
               <a
-                href={`https://maps.google.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.postalCode}`}
+                href={`https://maps.google.com/?q=${resultData?.position?.lat},%20${resultData?.position?.lng}`}
                 target="_blank"
                 rel="noreffer"
                 className="w-[25px] h-[25px] flex justify-center items-center mx-2"
@@ -60,7 +60,7 @@ const Result = ({
                 <FcGoogle className="w-full h-full" />
               </a>
               <a
-                href={`http://maps.apple.com/?q=${resultData?.title},${resultData?.address?.city},${resultData?.address?.postalCode}`}
+                href={`http://maps.apple.com/?q=${resultData?.title},%20${resultData?.address?.city},%20${resultData?.address?.postalCode}`}
                 target="_blank"
                 rel="noreffer"
                 className="w-[25px] h-[25px] flex justify-center items-center mx-2"
