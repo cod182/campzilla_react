@@ -40,7 +40,7 @@ function App() {
   return (
     <div className="scroll-smooth relative">
       <div
-        className={`w-full bg-slate-500 bg-opacity-[0.4] fixed z-[2] rounded-xl ease-in-out transition-all duration-1000 pointer-cursor flex flex-col justify-center items-center ${
+        className={`w-full bg-slate-500 bg-opacity-[0.4] fixed z-[9999] rounded-xl ease-in-out transition-all duration-1000 pointer-cursor flex flex-col justify-center items-center ${
           contactModal ? 'top-[0] h-full' : 'top-[-100vh] h-0'
         }`}
       >
