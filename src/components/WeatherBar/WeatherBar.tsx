@@ -168,24 +168,22 @@ const WeatherBar = ({ coords }: { coords: any }) => {
           </div>
         </div>
       </div>
-      <div className="w-[56rem] h-auto">
-        <button
-          className="w-full h-[20px] bg-[#3c83f6d6] hover:bg-[#60a5fad6] flex justify-center items-center rounded-full shadow-lg transition-all duration-500 ease-in-out"
-          style={{
-            backdropFilter: 'blur(1px)',
-          }}
-          onClick={() => {
-            setWeatherOpen((prev) => {
-              return prev ? false : true;
-            });
-          }}
-        >
-          {weatherOpen ? 'Hide Full Forecast' : 'Show Full Forecast'}
-        </button>
-      </div>
+      <button
+        className="w-full lg:w-[80%] h-[20px] bg-[#3c83f6d6] hover:bg-[#60a5fad6] flex justify-center items-center rounded-full shadow-lg transition-all duration-500 ease-in-out"
+        style={{
+          backdropFilter: 'blur(1px)',
+        }}
+        onClick={() => {
+          setWeatherOpen((prev) => {
+            return prev ? false : true;
+          });
+        }}
+      >
+        {weatherOpen ? 'Hide Full Forecast' : 'Show Full Forecast'}
+      </button>
       {/* Forecast container */}
       <div
-        className={`flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#a1a1a1a1] px-6 py-2 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`mx-3 md:mx-0 flex flex-col sm:flex-row flex-wrap justify-center items-center select-none bg-[#a1a1a1a1] px-6 py-2 rounded-bl-xl rounded-br-xl max-w-4xl overflow-hidden transition-all duration-500 ease-in-out ${
           weatherOpen === true ? 'max-h-[500px]' : 'max-h-[0px]'
         }`}
         style={{

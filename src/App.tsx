@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Home } from './routes/index';
-import { Header, SideNavBar } from './components/index';
+import { Header, SideNavBar, ToTopBtn } from './components/index';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 import './App.css';
@@ -27,7 +27,8 @@ function App() {
   };
 
   return (
-    <div className="bg-bg-main bg-cover bg-fixed bg-no-repeat">
+    <div className="bg-bg-main bg-cover bg-fixed bg-no-repeat scroll-smooth">
+      <ToTopBtn />
       {mobile && (
         <SideNavBar handleSideBar={handleSideBar} mobileMenu={mobileMenu} />
       )}

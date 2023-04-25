@@ -27,20 +27,24 @@ const Result = ({
     >
       {/* Title */}
       <div className="w-[92%] mb-4">
-        <a
+        <button
+          type="button"
           onClick={() => {
             setMapFocus({
               lat: resultData?.position?.lat,
               lng: resultData?.position?.lng,
             });
             setMapZoom(17);
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth',
+            });
           }}
-          href="#"
-          className="w-full text-[#23abff] group-hover:text-[#4ab836] text-[25px] sm:text-[28px] md:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
+          className="w-full text-start text-[#23abff] group-hover:text-[#4ab836] text-[25px] sm:text-[28px] md:text-[25px] font-semibold max-w-full ease-in-out transition-all duration-300"
         >
           {resultData.title.slice(0, 28)}
           {resultData.title.length > 28 ? '...' : null}
-        </a>
+        </button>
 
         <div className="border-b-4 border-[#23abff] group-hover:border-[#4ab836] w-[40px] group-hover:w-full transition-all ease-ine-out duration-1000"></div>
       </div>
