@@ -62,7 +62,7 @@ const Results = ({
 
       <button
         type="button"
-        className={`w-full px-6 py-4 my-6 bg-blue-500 hover:bg-blue-400 text-white rounded-lg ${
+        className={`w-full px-6 py-2 my-6 bg-blue-500 hover:bg-blue-600 hover:shadow-inner text-white rounded-lg font-semibold ease-in-out transition-all duration-500 ${
           maxResults >= locations.items.length && 'hidden'
         }`}
         onClick={() => {
@@ -71,7 +71,10 @@ const Results = ({
           });
         }}
       >
-        Load More
+        Load More&nbsp;
+        <span className="text-sm block font-normal">
+          Showing {locationsLimited.length} of {locations.items.length}
+        </span>
       </button>
     </div>
   );
