@@ -4,7 +4,7 @@ const About = () => {
   return (
     <div
       id="about"
-      className="mx-auto max-w-3xl bg-slate-600 h-fit rounded-2xl mb-10"
+      className="mx-auto max-w-3xl bg-slate-600 h-fit rounded-2xl mb-0 z-[1] relative"
     >
       <div className="rounded-t-2xl bg-white bg-head-img bg-bottom bg-no-repeat-y bg-cover text-center h-[100px] w-full flex flex-row justify-center items-center text-2xl font-bold">
         <h3 className="bg-white rounded-xl w-fit h-fit py-2 px-4">About</h3>
