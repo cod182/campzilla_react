@@ -2,9 +2,10 @@ import useFetch from 'react-fetch-hook';
 import { DotPulse } from '@uiball/loaders';
 import { useState } from 'react';
 import cloudImg from '../../assets/images/clouds.png';
+import clearSky from '../../assets/images/clear.png';
+import cloudySky from '../../assets/images/cloudy.png';
 import windAni from '../../assets/images/wind-turbine.gif';
 import { BsFillSunriseFill, BsFillSunsetFill } from 'react-icons/bs';
-import { ImCross } from 'react-icons/im';
 
 import {
   ConvertUnixTimeToHour,
@@ -126,21 +127,41 @@ const WeatherBar = ({ coords }: { coords: any }) => {
         {/* Cloud Cover */}
         <div
           className="flex flex-row items-end justify-between text-sm h-[70px] select-none my-2"
-          style={{
-            backdropFilter: 'blur(1px)',
-          }}
+          style={
+            {
+              // backdropFilter: 'blur(1px)',
+            }
+          }
         >
           <div
             className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
-            style={{
-              backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
-            }}
+            style={
+              {
+                // backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
+              }
+            }
           >
+            <img
+              src={clearSky}
+              alt="clear"
+              className="absolute w-full h-full top-0 right z-[0]"
+            />
+            <img
+              src={cloudySky}
+              alt="cloudy"
+              className={`absolute w-full h-full top-[0] z-[1]`}
+              style={{
+                right: `${100 - weatherData?.current?.clouds}%`,
+              }}
+            />
+
             <div
               className="absolute top-0 left-0 w-full h-full bg-[#9e9e9e75] text-black text-semibold flex flex-col justify-center items-center font-semibold"
-              style={{
-                backdropFilter: 'blur(1px)',
-              }}
+              style={
+                {
+                  // backdropFilter: 'blur(1px)',
+                }
+              }
             >
               <p className="z-[2] text-center text-sm">Cloud Cover</p>
               <p className="capitalize z-[2]">
