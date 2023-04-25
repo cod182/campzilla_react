@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 
 const ToTopBtn = () => {
-  // sets location as the current path
-  const location = window.location.pathname;
   // Holds the current scroll Y number
   const [scrollY, setScrollY] = useState(0);
   console.log(scrollY);
@@ -12,12 +11,12 @@ const ToTopBtn = () => {
 
   if (scrollY >= 1200) {
     return (
-      <button
-        type="button"
-        className="fixed right-0 bottom-[100px] w-[50px] h-[50px] rounded-xl bg-blue-400"
+      <a
+        href="#top"
+        className="fixed right-0 bottom-[100px] w-[50px] h-[50px] rounded-xl bg-blue-400 text-xl flex justify-center items-center ease-in-out transition-all duration-500"
       >
-        To TOP
-      </button>
+        <BsFillArrowUpCircleFill />
+      </a>
     );
   }
   return null;

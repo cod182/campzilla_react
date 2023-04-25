@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="bg-bg-main bg-cover bg-fixed bg-no-repeat">
+    <div id="top" className="bg-bg-main bg-cover bg-fixed bg-no-repeat">
       <ToTopBtn />
       {mobile && (
         <SideNavBar handleSideBar={handleSideBar} mobileMenu={mobileMenu} />
