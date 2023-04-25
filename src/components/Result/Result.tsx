@@ -21,8 +21,8 @@ const Result = ({
     <section
       className={`group overflow-hidden w-full flex flex-col justify-start rounded-lg bg-[#cfcfcfcc] p-5 shadow-lg relative ease-in-out transition-all duration-300 ${
         viewMore
-          ? 'max-h-[1000px] min-h-[300px]'
-          : 'max-h-[200px] min-h-[250px]'
+          ? 'max-h-[1000px] min-h-[230px]'
+          : 'max-h-[230px] min-h-[230px]'
       }`}
     >
       {/* Title */}
@@ -74,7 +74,7 @@ const Result = ({
               <span>{getMilesFromMeters(resultData.distance)}&nbsp;</span>
               Miles
             </p>
-            <div>
+            <div className="h-[85px]">
               {/* Phone */}
               {resultData?.contacts?.[0]?.phone ? (
                 <p className="my-1 flex items-center">
@@ -97,7 +97,7 @@ const Result = ({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {resultData?.contacts?.[0]?.email?.[0]?.value.slice(11, 50)}
+                    {resultData?.contacts?.[0]?.email?.[0]?.value}
                   </a>
                 </p>
               ) : null}
@@ -134,23 +134,31 @@ const Result = ({
         </div>
       </div>
       {/* Dropdown view more */}
-      {viewMore === true && (
-        <>
-          <hr className="mt-6 mb-4 border-b-[1px] border-slate-300" />
-          <div className="flex flex-row justify-between items-center">
-            <div className="my-2 w-full">
-              <h4 className="font-semibold">Address:</h4>
 
-              <address>
-                <p>{resultData?.title}</p>
-                <p>{resultData?.address?.city}</p>
-                <p>{resultData?.address?.county}</p>
-                <p>{resultData?.address?.postalCode}</p>
-              </address>
-            </div>
+      <div>
+        <hr
+          className={`mt-6 mb-4 border-b-[1px] border-slate-300 ease-in-out transition-all duration-1000 ${
+            viewMore ? 'opacity-1' : 'opacity-0'
+          }`}
+        />
+        <div
+          className={`flex flex-row justify-between items-cente ease-in-out transition-all duration-1000 ${
+            viewMore ? 'opacity-1' : 'opacity-0'
+          }`}
+        >
+          <div className="my-2 w-full">
+            <h4 className="font-semibold">Address:</h4>
+
+            <address>
+              <p>{resultData?.title}</p>
+              <p>{resultData?.address?.city}</p>
+              <p>{resultData?.address?.county}</p>
+              <p>{resultData?.address?.postalCode}</p>
+            </address>
           </div>
-        </>
-      )}
+        </div>
+      </div>
+
       <div className="w-[40px] h-[40px] absolute right-[10px] top-[10px] cursor-pointer	hover:drop-shadow-xl">
         <AiFillCaretDown
           className={`${
