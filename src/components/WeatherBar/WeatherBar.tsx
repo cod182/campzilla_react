@@ -125,21 +125,9 @@ const WeatherBar = ({ coords }: { coords: any }) => {
         </div>
 
         {/* Cloud Cover */}
-        <div
-          className="flex flex-row items-end justify-between text-sm h-[70px] select-none my-2"
-          style={
-            {
-              // backdropFilter: 'blur(1px)',
-            }
-          }
-        >
+        <div className="flex flex-row items-end justify-between text-sm h-[70px] select-none my-2">
           <div
             className={`relative overflow-hidden w-[90px] h-full flex flex-col justify-center items-center rounded-xl px-2 mx-2 bg-cover`}
-            style={
-              {
-                // backgroundImage: `-webkit-linear-gradient(44deg, transparent ${weatherData?.current?.clouds}%, rgb(127 187 255) ${weatherData?.current?.clouds}%), url(${cloudImg})`,
-              }
-            }
           >
             <img
               src={clearSky}

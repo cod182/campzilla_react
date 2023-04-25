@@ -9,4 +9,5 @@ export { default as Result } from './Result/Result.tsx'
 export { default as WeatherBar } from './WeatherBar/WeatherBar.tsx'
 export { default as RadiusBar } from './RadiusBar/RadiusBar.tsx'
 export { default as ToTopBtn } from './ToTopBtn/ToTopBtn.tsx'
+export { default as Footer } from './Footer/Footer.tsx'
 
