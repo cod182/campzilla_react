@@ -62,7 +62,7 @@ function App() {
       />
       <div className="bg-bg-main bg-cover bg-fixed bg-no-repeat min-h-[90vh] pb-[100px]">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
       <Footer />
