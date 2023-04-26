@@ -97,12 +97,13 @@ const WeatherBar = ({ coords }: { coords: any }) => {
             <p className="text-[5px] absolute bottom-[-17px]">
               <a
                 target="_blank"
+                rel="noreferrer"
                 href="https://icons8.com/icon/Q83OPXa8MS8N/wind-turbine"
               >
                 Wind Turbine
               </a>
               icon by
-              <a target="_blank" href="https://icons8.com">
+              <a target="_blank" rel="noreferrer" href="https://icons8.com">
                 Icons8
               </a>
             </p>

@@ -41,6 +41,7 @@ const SideNavBar = ({
         <button
           className="text-[50px] py-5 hover:text-[#49e940] transition-all ease-in-out duration-300 hover:bg-slate-600 w-full text-center rounded-full"
           onClick={() => {
+            handleSideBar();
             document!
               .getElementById('about')!
               .scrollIntoView({ behavior: 'smooth' });
@@ -49,9 +50,9 @@ const SideNavBar = ({
           ABOUT
         </button>
         <button
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={() => {
             handleSideBar();
+            handleContact();
           }}
           className="text-[50px] py-5 hover:text-[#49e940] transition-all ease-in-out duration-300 hover:bg-slate-600 w-full text-center rounded-full"
         >
@@ -59,9 +60,8 @@ const SideNavBar = ({
         </button>
         <button
           className="text-[50px] py-5 hover:text-[#49e940] transition-all ease-in-out duration-300 hover:bg-slate-600 w-full text-center rounded-full"
-          onClick={(e) => {
+          onClick={() => {
             handleSideBar();
-            handleContact();
           }}
         >
           RESET SEARCH

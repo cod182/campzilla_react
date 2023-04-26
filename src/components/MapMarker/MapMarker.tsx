@@ -52,7 +52,7 @@ const MapMarker = ({ result }: any) => {
             <a
               href={`https://maps.google.com/?q=${result?.position?.lat},%20${result?.position?.lng}`}
               target="_blank"
-              rel="noreffer"
+              rel="noreferrer"
               className="w-[20px] h-[20px] flex justify-center items-center mx-2"
             >
               <FcGoogle className="w-full h-full" />
@@ -60,7 +60,7 @@ const MapMarker = ({ result }: any) => {
             <a
               href={`http://maps.apple.com/?q=${result?.title},%20${result?.address?.city},%20${result?.address?.county},%20${result?.address?.postalCode}`}
               target="_blank"
-              rel="noreffer"
+              rel="noreferrer"
               className="w-[20px] h-[20px] flex justify-center items-center mx-2"
             >
               <BsApple className="w-[90%] h-[90%]" />
