@@ -25,7 +25,7 @@ const Home = () => {
   const {
     data: locationsData,
     isLoading: loadingLocations,
-    error: locaationsError,
+    error: locationsError,
   } = useFetch<any>(
     `https://discover.search.hereapi.com/v1/discover?q=${keyword}&in=circle:${geoLocationObj.lat},${geoLocationObj.lng};r=${radius}&limit=100&apiKey=${hereApiKey}`
   );
@@ -110,6 +110,8 @@ const Home = () => {
               <div className="w-full h-[200px] flex justify-center items-center">
                 <ChaoticOrbit size={60} speed={1.5} color="green" />
               </div>
+            ) : locationsError ? (
+              'Failed to load locations, please re-run the search'
             ) : (
               <Results
                 locations={locationsData}

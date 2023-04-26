@@ -88,7 +88,7 @@ const SearchBox = ({
       setGeoLocation(false);
       setGeoLocation(false);
     }
-  }, [coords]);
+  }, [coords, isGeolocationEnabled, isGeolocationAvailable]);
 
   return (
     <div
