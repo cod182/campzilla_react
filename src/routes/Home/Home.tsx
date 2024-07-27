@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
 import {
-  Map,
-  SearchBox,
   About,
+  Map,
   RadiusBar,
   Results,
+  SearchBox,
   WeatherBar,
 } from '../../components/index';
-import { fetchPosition } from '../../services/hereGeocodeApi';
+import { useEffect, useState } from 'react';
+
 import { ChaoticOrbit } from '@uiball/loaders';
+import { fetchPosition } from '../../services/hereGeocodeApi';
 import useFetch from 'react-fetch-hook';
+
 const Home = () => {
   const keyword = 'campground';
   const hereApiKey = process.env.REACT_APP_HERE_API;
@@ -90,7 +92,7 @@ const Home = () => {
           <div className="w-full h-[200px] flex flex-col justify-center items-center">
             <ChaoticOrbit size={60} speed={1.5} color="green" />
           </div>
-        ) : (
+        ) : locationsData ? (<div className='flex flex-col items-center justify-center w-full h-full my-6 grow'><p>Unfortunately, due to HereMaps new policies, free api access is no longer available.</p></div>) : (
           <>
             <div id="map" className="z-[2]">
               <Map
